@@ -1,12 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+  <style>
+    ul {
+      list-style-type: none;
+      padding: 5px;
+    }
+    #sidebar {
+      background-color: #616161;
+      position: fixed;
+      top: 0px;
+      left: 0px;
+      bottom: 0px;
+      right: 56px;
+    }
+    #topbar {
+      background-color: #bfbfbf;
+      position: fixed;
+      top: 0px;
+      left: 56px;
+      bottom: 47px;
+      right: 0px;
+    
+    }
+    #content {
+      background-color: #ededed;
+      position: fixed;
+      left: 56px;
+      top: 47px;
+      bottom: 0px;
+      right: 0px;
+    }
+    
+  </style>
   <head>
-    <title> This is not Printrhub </title>
+    <title> This is not Printrbot Cloud </title>
   </head>
   <body>
-    <h1> Hello World </h1>
-    <p> This is not Printrhub. It doesn't really look like it either</p>
-    <p> Lalala </p>
-    <p> lul: {{ request.values.keys() }} </p>
+    <div id="sidebar">
+      <ul>
+	<li><img src="https://printrbot.cloud/images/materials.svg"> </img></li>
+	<li><img src="https://printrbot.cloud/images/materials.svg"> </img></li>
+	<li><img src="https://printrbot.cloud/images/materials.svg"> </img></li>
+      </ul>
+    </div>
+    <div id="topbar">
+      <h1> Projects Library </h1>
+    <div id="content">
+      <h1> Hello World </h1>
+      <p> This is not Printrhub. It doesn't really look like it either</p>
+      <ul>
+	{% for key in render_kwargs.keys() %}
+	<li>{{ key }}</li>
+	{% endfor %}
+      </ul>
   </body>
 </html>
