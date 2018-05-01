@@ -26,8 +26,14 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
     
     def on_ui_render(self, now, request, render_kwargs):
         from flask import make_response, render_template
+
+        self._logger.info("Instance name is: " + self._identifier)
+
+        file_data = self._file_manager.list_files()
+        self._logger.info(file_data)
         return make_response(render_template("printrhub_web.jinja2",
-                                             render_kwargs=render_kwargs))
+                                             render_kwargs=render_kwargs,
+                                             files=file_data))
 
 __plugin_name__ = "Printrhub"
 __plugin_implementation__ = PrintrhubUI()

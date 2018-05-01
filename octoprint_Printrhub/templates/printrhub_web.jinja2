@@ -25,5 +25,11 @@
 	<li>{{ key }}</li>
 	{% endfor %}
       </ul>
+      <p> Here are the files loaded on this system: </p>
+      <ul>
+	{% for file in files['local'] %}
+	<li> {{file}} </li>
+	{% endfor %}
+      </ul>
   </body>
 </html>
