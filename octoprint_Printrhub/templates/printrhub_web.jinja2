@@ -18,8 +18,13 @@
     <div id="topbar">
       <h1> Projects Library </h1>
     <div id="content">
-      <h1> Hello World </h1>
       <p> This is not Printrhub. It doesn't really look like it either</p>
+      <p> Here are the files loaded on this system: </p>
+      <ul>
+	{% for file in files['local'] %}
+	<li> {{file}} </li>
+	{% endfor %}
+      </ul>
       <form action="plugin/Printrhub/upload?apikey=" method="post" enctype="multipart/form-data">
 	<div>
 	  <label for="file">Choose file to upload</label>
@@ -29,11 +34,5 @@
 	  <button>Submit</button>
 	</div>
       </form>
-      <p> Here are the files loaded on this system: </p>
-      <ul>
-	{% for file in files['local'] %}
-	<li> {{file}} </li>
-	{% endfor %}
-      </ul>
   </body>
 </html>
