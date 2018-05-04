@@ -3,6 +3,7 @@ from __future__ import absolute_import
 
 import octoprint.plugin
 import flask # maybe clean this up.
+import octoprint.filemanager.util
 
 # Plugin identifier is "Printrhub"
 
@@ -25,12 +26,24 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
             found_file=False,
         )
 
+        # prove to ourselves that the file object doesn't exist
+        # like flask says it should. 
+        if 'file' not in flask.request.files:
+            result["status"] = "No file found"
+        else:
+            result["status"] = "Found a file"
+            
         for key in keys:
             param = input_name + "." + key
             if param in flask.request.values:
                 result["found_file"] = True
                 result[key] = flask.request.values[param]
 
+
+        upload = octoprint.filemanager.util.DiskFileWrapper(result["name"], result["path"])
+        self._file_manager.add_file("local", result["name"], upload)
+
+        
         return flask.jsonify(result)
 
     def on_after_startup(self):
