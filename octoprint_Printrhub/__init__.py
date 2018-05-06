@@ -11,7 +11,8 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
                   octoprint.plugin.UiPlugin,
                   octoprint.plugin.TemplatePlugin,
                   octoprint.plugin.AssetPlugin,
-                  octoprint.plugin.BlueprintPlugin):
+                  octoprint.plugin.BlueprintPlugin,
+                  octoprint.plugin.EventHandlerPlugin):
 
     @octoprint.plugin.BlueprintPlugin.route("/upload", methods=["POST"])
     def upload_file(self):
@@ -52,7 +53,13 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
     def will_handle_ui(self, request):
         return True
 
-        
+    def on_event(self, event, payload):
+        if event == "FileAdded":
+            self._logger.info("*** A FILE WAS UPLOADED ***")
+        else:
+            self._logger.info("Event fired " + event) 
+    
+    
     def get_assets(self):
         # fixme: before making "prod" commit, change config yaml
         # to bundle, and check in CSS files. 
@@ -71,7 +78,7 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
         # Generate data for file view.
         # fixme: only needed when viewing files.
         file_data = self._file_manager.list_files()
-        #self._logger.info(file_data)
+        self._logger.info(file_data)
 
         return make_response(render_template("printrhub_web.jinja2",
                                              render_kwargs=render_kwargs,
