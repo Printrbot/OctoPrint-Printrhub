@@ -7,7 +7,6 @@ import octoprint.filemanager.util
 import subprocess
 
 # Plugin identifier is "Printrhub"
-# Fixme: 1MB file is too large for the system.
 
 class PrintrhubUI(octoprint.plugin.StartupPlugin,
                   octoprint.plugin.UiPlugin,
@@ -117,7 +116,7 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
 
     def bodysize_hook(self, current_max_body_sizes, *args, **kwargs):
         # fixme: do the math and pick a reasonable size.
-        return [("POST", r"/upload", 1024 * 1024)]
+        return [("POST", r"/upload", 20 * 1024 * 1024)]
     
 
 __plugin_name__ = "Printrhub"

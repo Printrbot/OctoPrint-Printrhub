@@ -2,37 +2,43 @@
 <html lang="en">
   <head>
     <title> This is not Printrbot Cloud </title>
-    <!-- Fixme: There is a way to automatically instantiate these CSS/LESS and less.min.js links below. I haven't figured out how to do it, so manual now. -->
-    <link rel="stylesheet/less" type="text/css" href="/plugin/Printrhub/static/less/Printrhub.less" />
-    <script src="/static/js/lib/less.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="/plugin/Printrhub/static/css/Printrhub.css" />
   </head>
   <body>
-    <div id="sidebar">
-      <ul>
-	<li><img src="/plugin/Printrhub/static/img/files.svg"> </img></li>
-	<li><img src="/plugin/Printrhub/static/img/status.svg"> </img></li>
-	<li><img src="/plugin/Printrhub/static/img/materials.svg"> </img></li>
-	<li><img src="/plugin/Printrhub/static/img/about.svg"></img></li>
-      </ul>
-    </div>
-    <div id="topbar">
-      <h1> Projects Library </h1>
-    <div id="content">
-      <p> This is not Printrhub. It doesn't really look like it either</p>
-      <p> Here are the files loaded on this system: </p>
-      <ul>
-	{% for file in files['local'] %}
-	<li> {{file}} </li>
-	{% endfor %}
-      </ul>
-      <form action="plugin/Printrhub/upload?apikey=" method="post" enctype="multipart/form-data">
-	<div>
-	  <label for="file">Choose file to upload</label>
-	  <input type="file" id="file" name="file"/>
-	</div>
-	<div>
-	  <button>Submit</button>
-	</div>
-      </form>
+    <div class="container">
+      <div class="sidebar">
+	<ul>
+	  <li><img src="/plugin/Printrhub/static/img/files.svg"> </img></li>
+	  <li><img src="/plugin/Printrhub/static/img/status.svg"> </img></li>
+	  <li><img src="/plugin/Printrhub/static/img/materials.svg"> </img></li>
+	  <li><img src="/plugin/Printrhub/static/img/about.svg"></img></li>
+	</ul>
+      </div> <!-- sidebar --> 
+      <div class="browser"> 
+	<div id="printrbar">
+	  <h1> PROJECTS LIBRARY </h1>
+	</div> <!-- printrbar -->
+	<div id="content">
+	  <p> This is not Printrhub. It doesn't really look like it either</p>
+	  <p> Here are the files loaded on this system: </p>
+	  <ul>
+	    {% for file in files['local'] %}
+	    <li> <p>{{file}}</p><img src="/plugin/Printrhub/static/img/{{file}}.png" height="248" width="253"</img> </li>
+	    {% endfor %}
+	  </ul>
+	</div> <!-- content -->
+	<div id="form">
+	  <form action="plugin/Printrhub/upload?apikey=" method="post" enctype="multipart/form-data">
+	    <div>
+	      <label for="file">Choose file to upload</label>
+	      <input type="file" id="file" name="file"/>
+	    </div>
+	    <div>
+	      <button>Submit</button>
+	    </div>
+	  </form>
+	</div> <!-- form -->
+      </div> <!-- browser --> 
+    </div> <!-- container -->
   </body>
 </html>
