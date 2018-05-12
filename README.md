@@ -1,17 +1,17 @@
 # OctoPrint-Printrhub
 
-**TODO:** Describe what your plugin does.
+This plugin is a work in progress. The goal is to skin OctoPrint via a plugin to make it look and behave more like Printrbot.cloud. 
 
 ## Setup
 
-Install via the bundled [Plugin Manager](https://github.com/foosel/OctoPrint/wiki/Plugin:-Plugin-Manager)
-or manually using this URL:
+Currently, this plugin is not published via the plugin manager or available as a .zip package. 
 
-    https://github.com/BDFife/OctoPrint-Printrhub/archive/master.zip
-
-**TODO:** Describe how to install your plugin, if more needs to be done than just installing it via pip or through
-the plugin manager.
+The plugin requires https://github.com/fogleman/fauxgl to be installed on the system. More details will be provided as the project stabilizes. 
 
 ## Configuration
 
 **TODO:** Describe your plugin's configuration options (if any).
+
+## Info
+
+If you'd like to get involved with this project, talk to Brian (@bdfife) or Brook (@printrbot). 
