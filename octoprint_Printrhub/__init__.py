@@ -56,9 +56,9 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
         self._file_manager.add_file("local", result["name"],
                                     upload, allow_overwrite=True)
 
-        # fixme: replace this with a redirect to the main page. 
-        return flask.jsonify(result)
-
+        # return a redirect to the main page, upload received. 
+        return flask.redirect(flask.url_for("index"), code=303)
+        
     def on_after_startup(self):
         self._logger.info("Printrhub UI successfully running.")
         
