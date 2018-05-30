@@ -18,11 +18,11 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
     @octoprint.plugin.BlueprintPlugin.route("/upload", methods=["POST"])
     def upload_file(self):
         """
-        This section handles file uploads. If you are working on the frontend 
+        This section handles file uploads. If you are working on the frontend
         it may be easier and better to pass your upload to the OctoPrint API
         directly
         """
-        
+
         self._logger.info("File upload page")
 
         # fixme: understand why this call requires an API key
@@ -35,7 +35,7 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
         )
 
         # prove to ourselves that the file object doesn't exist
-        # like flask says it should. 
+        # like flask says it should.
         if 'file' not in flask.request.files:
             result["status"] = "No file found"
         else:
@@ -56,12 +56,12 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
         self._file_manager.add_file("local", result["name"],
                                     upload, allow_overwrite=True)
 
-        # return a redirect to the main page, upload received. 
+        # return a redirect to the main page, upload received.
         return flask.redirect(flask.url_for("index"), code=303)
-        
+
     def on_after_startup(self):
         self._logger.info("Printrhub UI successfully running.")
-        
+
     def will_handle_ui(self, request):
         """
         If this function returns True, the standard OctoPrint UI is disabled.
@@ -74,7 +74,7 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
     def on_event(self, event, payload):
         """
         on_event allows us to hook into system events. Specifically, the
-        plugin needs to know when a file is added to the system so that it 
+        plugin needs to know when a file is added to the system so that it
         can render an STL preview (via FauxGL)
         """
 
@@ -93,10 +93,10 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
             script_path = self._basefolder + "/stl_preview.go"
             self._logger.info(script_path)
             my_result = ""
-            try: 
+            try:
                 # fixme: this is dangerous and hacked.
                 # dangerous: running as shell.
-                # Fixme: gopath should be a config setting. 
+                # Fixme: gopath should be a config setting.
                 env = {'GOPATH': r'/home/pi/gocode'}
                 my_result = subprocess.check_output("go run " + script_path + " --input " + stl_path + " --output " + out_path,
                                                     shell=True,
@@ -108,19 +108,23 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
                 self._logger.info(e.output)
                 self._logger.info(e.cmd)
                 self._logger.info(e.returncode)
-                
+
             self._logger.info(my_result)
-            
+
     def get_assets(self):
         # fixme: before making "prod" commit, change config yaml
-        # to bundle, and check in CSS files. 
+        # to bundle, and check in CSS files.
         return dict(
-            css=["css/Printrhub.css"],
-            less=["less/Printrhub.less"]
+            css=[   "css/Printrhub.css",
+                    "css/searchbar.css",
+                    "css/file-browser.css",
+                    "css/sidebar.css"],
+            #html=[  "html/materials.html"],
+            #less=["less/Printrhub.less"],
         )
-    
+
     def on_ui_render(self, now, request, render_kwargs):
-        """ 
+        """
         this is where the Printrbot UI is rendered by the plugin. Right now
         it just handles UI when the root URL is called. We can add additional
         paths (like with upload_file) that use a path decorator to add other
@@ -143,13 +147,18 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
 
     def bodysize_hook(self, current_max_body_sizes, *args, **kwargs):
         """
-        because upload_file takes in an STL file that can get big, we need to 
+        because upload_file takes in an STL file that can get big, we need to
         override the default file size of 100k that Octoprint enforces.
         """
-        
+
         # fixme: do the math and pick a reasonable size.
         return [("POST", r"/upload", 20 * 1024 * 1024)]
-    
+
+#    def get_template_configs(self):
+#        return  [
+#            dict(type="materials", custom_bindings=False)
+#                ]
+
 
 __plugin_name__ = "Printrhub"
 

@@ -1,44 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title> This is not Printrbot Cloud </title>
+    <title>Printrbot</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/plugin/Printrhub/static/css/Printrhub.css" />
+    <link rel="stylesheet" type="text/css" href="/plugin/Printrhub/static/css/sidebar.css" />
+    <link rel="stylesheet" type="text/css" href="/plugin/Printrhub/static/css/file-browser.css" />
+    <link rel="stylesheet" type="text/css" href="/plugin/Printrhub/static/css/searchbar.css" />
   </head>
+
   <body>
     <div class="container">
-      <div class="sidebar">
-	<ul>
-	  <li><img src="/plugin/Printrhub/static/img/files.svg"> </img></li>
-	  <li><img src="/plugin/Printrhub/static/img/status.svg"> </img></li>
-	  <li><img src="/plugin/Printrhub/static/img/materials.svg"> </img></li>
-	  <li><img src="/plugin/Printrhub/static/img/about.svg"></img></li>
-	</ul>
-      </div> <!-- sidebar --> 
-      <div class="browser"> 
-	<div id="printrbar">
-	  <h1> PROJECTS LIBRARY </h1>
-	</div> <!-- printrbar -->
-	<div id="content">
-	  <p> This is not Printrhub. It doesn't really look like it either</p>
-	  <p> Here are the files loaded on this system: </p>
-	  <ul>
-	    {% for file in files['local'] %}
-	    <li> <p>{{file}}</p><img src="/plugin/Printrhub/static/img/{{file}}.png" height="248" width="253"</img> </li>
-	    {% endfor %}
-	  </ul>
-	</div> <!-- content -->
-	<div id="form">
-	  <form action="plugin/Printrhub/upload?apikey=" method="post" enctype="multipart/form-data">
-	    <div>
-	      <label for="file">Choose file to upload</label>
-	      <input type="file" id="file" name="file"/>
-	    </div>
-	    <div>
-	      <button>Submit</button>
-	    </div>
-	  </form>
-	</div> <!-- form -->
-      </div> <!-- browser --> 
+
+      {% include '/html/sidebar.html' %}
+
+      <!-- This empty space is for the sidebar, to maintain a fixed margin  -->
+      <div class="EMPTY-SPACE-FOR-SIDEBAR" >&nbsp;</div>
+
+      {% include '/html/file-browser.html' %}
+
+      {% block materials %}
+      {% endblock %}
+
     </div> <!-- container -->
+
   </body>
 </html>

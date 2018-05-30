@@ -1,0 +1,34 @@
+<div class="browser column">
+
+  <div id="printrbar">
+    <h1> PROJECTS LIBRARY </h1>
+
+    <div class="searchbar">
+      <input type="text" class="form-control search-field" placeholder="search">
+    </div>
+
+  </div> <!-- printrbar -->
+
+  <div id="content">
+    <p> This is not Printrhub. It doesn't really look like it either</p>
+    <p> Here are the files loaded on this system: </p>
+    <ul>
+      {% for file in files['local'] %}
+      <li> <p>{{file}}</p><img src="/plugin/Printrhub/static/img/{{file}}.png" height="248" width="253"</img> </li>
+      {% endfor %}
+    </ul>
+  </div> <!-- content -->
+
+  <div id="form">
+    <form action="plugin/Printrhub/upload?apikey=" method="post" enctype="multipart/form-data">
+      <div>
+        <label for="file">Choose file to upload</label>
+        <input type="file" id="file" name="file"/>
+      </div>
+      <div>
+        <button>Submit</button>
+      </div>
+    </form>
+  </div> <!-- form -->
+
+</div> <!-- browser -->
