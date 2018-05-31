@@ -136,23 +136,46 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
         from flask import make_response, render_template
         
         self._logger.info("Rendering printer status page")
-        return make_response(render_template("printrhub_web2.jinja2"))
-
+        return make_response(render_template("printrhub_status.jinja2"))
 
     # note: this path /settings is relative to the plugin root,
     # so it is located at ./plugin/Printrhub/settings
     @octoprint.plugin.BlueprintPlugin.route("/settings", methods=["GET"])
-    def render_status(self):
+    def render_settings(self):
         """
         This is the URL that shows the settings.
         We'll use it to set hostname, wifi, etc. 
         """
         from flask import make_response, render_template
         
-        self._logger.info("Rendering printer status page")
-        return make_response(render_template("printrhub_web3.jinja2"))
+        self._logger.info("Rendering printer settings page")
+        return make_response(render_template("printrhub_settings.jinja2"))
 
-    
+    # note: this path /materials is relative to the plugin root,
+    # so it is located at ./plugin/Printrhub/materials
+    @octoprint.plugin.BlueprintPlugin.route("/materials", methods=["GET"])
+    def render_materials(self):
+        """
+        This is the URL that shows the settings.
+        We'll use it to set hostname, wifi, etc. 
+        """
+        from flask import make_response, render_template
+        
+        self._logger.info("Rendering printer materials page")
+        return make_response(render_template("printrhub_materials.jinja2"))
+
+    # note: this path /about is relative to the plugin root,
+    # so it is located at ./plugin/Printrhub/about
+    @octoprint.plugin.BlueprintPlugin.route("/about", methods=["GET"])
+    def render_about(self):
+        """
+        This is the URL that shows the settings.
+        We'll use it to set hostname, wifi, etc. 
+        """
+        from flask import make_response, render_template
+        
+        self._logger.info("Rendering printer a-boot page")
+        return make_response(render_template("printrhub_about.jinja2"))
     
     # No decorator needed, this renders root ("/") by default. 
     def on_ui_render(self, now, request, render_kwargs):
@@ -173,7 +196,7 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
 
         # This jinja template is kept in the templates directory in the
         # plugin folder.
-        return make_response(render_template("printrhub_web.jinja2",
+        return make_response(render_template("printrhub_files.jinja2",
                                              render_kwargs=render_kwargs,
                                              files=file_data))
 
