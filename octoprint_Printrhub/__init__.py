@@ -131,6 +131,8 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
     def render_status(self):
         """
         This is the URL that shows the printer status page.
+        This is where we'll show the 'loaded' gcode file, 
+        printer status, and where you start a print. 
         We may eventually want this to be default, at root, though.
         """
         from flask import make_response, render_template
@@ -156,8 +158,9 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
     @octoprint.plugin.BlueprintPlugin.route("/materials", methods=["GET"])
     def render_materials(self):
         """
-        This is the URL that shows the settings.
-        We'll use it to set hostname, wifi, etc. 
+        This is the URL that shows the materials.
+        We'll use it to set filament type, which will
+        eventually feed into the slicer. 
         """
         from flask import make_response, render_template
         
@@ -169,8 +172,9 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
     @octoprint.plugin.BlueprintPlugin.route("/about", methods=["GET"])
     def render_about(self):
         """
-        This is the URL that shows the settings.
-        We'll use it to set hostname, wifi, etc. 
+        This is the URL that shows the about page.
+        We'll use it to honor our contributors and credit 
+        the software we're using to build this.
         """
         from flask import make_response, render_template
         
