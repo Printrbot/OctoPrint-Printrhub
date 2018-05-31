@@ -27,37 +27,20 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
         
         self._logger.info("File upload page")
 
-        # fixme: understand why this call requires an API key
-        # (and then ignores the actual value)
-        input_name = "file"
-        keys = ("name", "size", "content_type", "path")
-
-        result = dict(
-            found_file=False,
-        )
-
-        # prove to ourselves that the file object doesn't exist
-        # like flask says it should. 
-        if 'file' not in flask.request.files:
-            result["status"] = "No file found"
-        else:
-            result["status"] = "Found a file"
-
-        # this is for debugging purposes, but I use the variables below.
-        # fixme: clean this up.
-        for key in keys:
-            param = input_name + "." + key
-            if param in flask.request.values:
-                result["found_file"] = True
-                result[key] = flask.request.values[param]
+        upload_name = flask.request.values.get("file.name", None)
+        upload_path = flask.request.values.get("file.path", None)
 
         # grab a file handle from the temp directory where flask places it.
         # then move it over to the proper location.
-        upload = octoprint.filemanager.util.DiskFileWrapper(result["name"],
-                                                            result["path"])
-        self._file_manager.add_file("local", result["name"],
-                                    upload, allow_overwrite=True)
 
+
+        # Fixme: some error checking wouldn't hurt here.
+        upload = octoprint.filemanager.util.DiskFileWrapper(upload_name,
+                                                            upload_path)
+
+        self._file_manager.add_file("local", upload_name,
+                                    upload, allow_overwrite=True)
+        
         # return a redirect to the main page, upload received. 
         return flask.redirect(flask.url_for("index"), code=303)
         
