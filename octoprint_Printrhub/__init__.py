@@ -15,6 +15,8 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
                   octoprint.plugin.BlueprintPlugin,
                   octoprint.plugin.EventHandlerPlugin):
 
+    # note: this path /upload is relative to the plugin root,
+    # so it is located at ./plugin/Printrhub/upload
     @octoprint.plugin.BlueprintPlugin.route("/upload", methods=["POST"])
     def upload_file(self):
         """
@@ -123,6 +125,67 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
             #less=["less/Printrhub.less"],
         )
 
+
+    # note that these render calls can be overridden to add
+    # request arguments, kwargs, etc. as part of function call.
+    # see here: http://docs.octoprint.org/en/master/plugins/mixins.html#octoprint.plugin.BlueprintPlugin.get_blueprint_kwargs
+    # note: this path /status is relative to the plugin root,
+    # so it is located at ./plugin/Printrhub/status
+    @octoprint.plugin.BlueprintPlugin.route("/status", methods=["GET"])
+    def render_status(self):
+        """
+        This is the URL that shows the printer status page.
+        This is where we'll show the 'loaded' gcode file, 
+        printer status, and where you start a print. 
+        We may eventually want this to be default, at root, though.
+        """
+        from flask import make_response, render_template
+        
+        self._logger.info("Rendering printer status page")
+        return make_response(render_template("printrhub_status.jinja2"))
+
+    # note: this path /settings is relative to the plugin root,
+    # so it is located at ./plugin/Printrhub/settings
+    @octoprint.plugin.BlueprintPlugin.route("/settings", methods=["GET"])
+    def render_settings(self):
+        """
+        This is the URL that shows the settings.
+        We'll use it to set hostname, wifi, etc. 
+        """
+        from flask import make_response, render_template
+        
+        self._logger.info("Rendering printer settings page")
+        return make_response(render_template("printrhub_settings.jinja2"))
+
+    # note: this path /materials is relative to the plugin root,
+    # so it is located at ./plugin/Printrhub/materials
+    @octoprint.plugin.BlueprintPlugin.route("/materials", methods=["GET"])
+    def render_materials(self):
+        """
+        This is the URL that shows the materials.
+        We'll use it to set filament type, which will
+        eventually feed into the slicer. 
+        """
+        from flask import make_response, render_template
+        
+        self._logger.info("Rendering printer materials page")
+        return make_response(render_template("printrhub_materials.jinja2"))
+
+    # note: this path /about is relative to the plugin root,
+    # so it is located at ./plugin/Printrhub/about
+    @octoprint.plugin.BlueprintPlugin.route("/about", methods=["GET"])
+    def render_about(self):
+        """
+        This is the URL that shows the about page.
+        We'll use it to honor our contributors and credit 
+        the software we're using to build this.
+        """
+        from flask import make_response, render_template
+        
+        self._logger.info("Rendering printer a-boot page")
+        return make_response(render_template("printrhub_about.jinja2"))
+    
+    # No decorator needed, this renders root ("/") by default. 
     def on_ui_render(self, now, request, render_kwargs):
         """
         this is where the Printrbot UI is rendered by the plugin. Right now
@@ -141,7 +204,7 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
 
         # This jinja template is kept in the templates directory in the
         # plugin folder.
-        return make_response(render_template("printrhub_web.jinja2",
+        return make_response(render_template("printrhub_files.jinja2",
                                              render_kwargs=render_kwargs,
                                              files=file_data))
 

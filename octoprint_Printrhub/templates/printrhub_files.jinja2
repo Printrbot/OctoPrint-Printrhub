@@ -12,12 +12,12 @@
   <body>
     <div class="container">
 
-      {% include '/html/sidebar.html' %}
+      {% include '/html/sidebar.jinja2' %}
 
       <!-- This empty space is for the sidebar, to maintain a fixed margin  -->
       <div class="EMPTY-SPACE-FOR-SIDEBAR" >&nbsp;</div>
 
-      {% include '/html/file-browser.html' %}
+      {% include '/html/file-browser.jinja2' %}
 
       {% block materials %}
       {% endblock %}
