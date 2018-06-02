@@ -120,7 +120,9 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
             css=[   "css/Printrhub.css",
                     "css/searchbar.css",
                     "css/file-browser.css",
-                    "css/sidebar.css"],
+                    "css/sidebar.css",
+                    "css/create-material-button.css",
+                    "css/table.css"],
             #html=[  "html/materials.html"],
             #less=["less/Printrhub.less"],
         )
@@ -170,6 +172,34 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
 
         self._logger.info("Rendering printer materials page")
         return make_response(render_template("printrhub_materials.jinja2"))
+
+    # note: this path /about is relative to the plugin root,
+    # so it is located at ./plugin/Printrhub/about
+    @octoprint.plugin.BlueprintPlugin.route("/minifactory", methods=["GET"])
+    def render_about(self):
+        """
+        This is the URL that shows the about page.
+        We'll use it to honor our contributors and credit
+        the software we're using to build this.
+        """
+        from flask import make_response, render_template
+
+        self._logger.info("Rendering printer a-boot page")
+        return make_response(render_template("printrhub_minifactory.jinja2"))
+
+    # note: this path /about is relative to the plugin root,
+    # so it is located at ./plugin/Printrhub/about
+    @octoprint.plugin.BlueprintPlugin.route("/thingiverse", methods=["GET"])
+    def render_about(self):
+        """
+        This is the URL that shows the about page.
+        We'll use it to honor our contributors and credit
+        the software we're using to build this.
+        """
+        from flask import make_response, render_template
+
+        self._logger.info("Rendering printer a-boot page")
+        return make_response(render_template("printrhub_thingiverse.jinja2"))
 
     # note: this path /about is relative to the plugin root,
     # so it is located at ./plugin/Printrhub/about

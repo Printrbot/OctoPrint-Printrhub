@@ -32,3 +32,13 @@
   color: white;
   background-color: #ED9419;
 }
+
+.sidebar-item#sidebar-item-minifactory:hover {
+  color: white;
+  background-color: #00baa2;
+}
+
+.sidebar-item#sidebar-item-thingiverse:hover {
+  color: white;
+  background-color: #228BFA;
+}

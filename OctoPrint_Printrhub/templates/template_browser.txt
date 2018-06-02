@@ -1,0 +1,18 @@
+
+<!--
+  This file is only for template making the jinja templates for the browser_container
+-->
+
+
+{% extends 'printrhub_files.jinja2' %}
+
+{% block browser_container %}
+
+<div class="browser column">
+
+  {% set printrbar_title = 'MY MINI FACTORY' %}
+  {% include 'html/printrbar.jinja2' %}
+
+</div>
+
+{% endblock %}
