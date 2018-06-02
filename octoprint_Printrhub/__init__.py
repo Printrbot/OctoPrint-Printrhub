@@ -176,7 +176,7 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
     # note: this path /about is relative to the plugin root,
     # so it is located at ./plugin/Printrhub/about
     @octoprint.plugin.BlueprintPlugin.route("/minifactory", methods=["GET"])
-    def render_about(self):
+    def render_minifactory(self):
         """
         This is the URL that shows the about page.
         We'll use it to honor our contributors and credit
@@ -190,7 +190,7 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
     # note: this path /about is relative to the plugin root,
     # so it is located at ./plugin/Printrhub/about
     @octoprint.plugin.BlueprintPlugin.route("/thingiverse", methods=["GET"])
-    def render_about(self):
+    def render_thingiverse(self):
         """
         This is the URL that shows the about page.
         We'll use it to honor our contributors and credit
