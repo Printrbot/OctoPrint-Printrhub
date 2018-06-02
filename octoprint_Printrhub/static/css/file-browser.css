@@ -1,6 +1,33 @@
-.browser {
-  position: relative;
-  height: 100%;
+.file-item-container {
+  background-color: #616161;
+
+}
+
+.file-item {
+  background-color: #616161;
+  margin-left: 10px;
+  width: 150px;
   float: left;
-  width: 82%;
+}
+
+.file-item-preview {
+
+}
+
+.file-item-bar {
+  font-size: 16px;
+  background-color: white;
+  color: #616161;
+  height: 50px;
+  text-align: center;
+}
+
+.file-item-bar-filename {
+  display: inline-block;
+  margin-top: 15px;
+}
+
+.file-image {
+  height: 150px;
+  width: 150px;
 }

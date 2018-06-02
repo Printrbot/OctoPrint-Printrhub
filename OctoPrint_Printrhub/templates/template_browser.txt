@@ -16,3 +16,18 @@
 </div>
 
 {% endblock %}
+
+
+
+<div class="file-item-container">
+  <div class="file-item">
+
+    <div class="file-item-preview">
+      <img class="file-item" src="/plugin/Printrhub/static/img/{{file}}.png" /> </img>
+    </div>
+    <div class="file-item-bar">
+      <p>{{file}}</p>
+    </div>
+
+  </div>
+</div>

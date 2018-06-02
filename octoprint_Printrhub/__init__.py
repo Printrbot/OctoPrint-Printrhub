@@ -61,6 +61,23 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
         # return a redirect to the main page, upload received.
         return flask.redirect(flask.url_for("index"), code=303)
 
+
+    """
+    @octoprint.plugin.BlueprintPlugin.route("/show/<filename>", methods=["GET"])
+    def get_uploaded_file(filename):
+        from flask import render_template
+
+        filename = '/static/img/' + filename + ".png"
+        return make_repsonse(render_template('get_uploaded_file.jinja2', filename=filename))
+
+    @octoprint.plugin.BlueprintPlugin.errorhandler(404)
+    def image_not_found(error):
+        from flask import render_template
+
+        self._logger.info("*** 404 image_not_found ***")
+        return make_repsonse(render_template('noimage_thumb.jinja2'), 404)
+    """
+
     def on_after_startup(self):
         self._logger.info("Printrhub UI successfully running.")
 

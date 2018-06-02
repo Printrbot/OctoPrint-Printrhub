@@ -7,13 +7,28 @@
   </div>
 
   <div id="content">
-    <p> This is not Printrhub. It doesn't really look like it either</p>
-    <p> Here are the files loaded on this system: </p>
-    <ul>
-      {% for file in files['local'] %}
-      <li> <p>{{file}}</p><img src="/plugin/Printrhub/static/img/{{file}}.png" height="248" width="253"</img> </li>
-      {% endfor %}
-    </ul>
+
+    <h1>Number of files: {{files['local']|length}}</h1>
+
+    {% for file in files['local'] %}
+      <div class="file-item">
+
+        <div class="file-item-preview">
+          <img class="file-image" src="/plugin/Printrhub/static/img/noimage_thumb.png" /> </img>
+        </div>
+        <div class="file-item-bar">
+          <span class="file-item-bar-filename">
+            <strong>{{file}}</strong>
+          </span>
+        </div>
+
+      </div>
+    {% endfor %}
+
+    <div class="create-project-footer">
+        <div class="project-name">Create Project</div>
+    </div>
+
   </div> <!-- content -->
 
   <div id="form">
