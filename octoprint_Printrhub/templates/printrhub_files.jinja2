@@ -7,6 +7,8 @@
     <link rel="stylesheet" type="text/css" href="/plugin/Printrhub/static/css/sidebar.css" />
     <link rel="stylesheet" type="text/css" href="/plugin/Printrhub/static/css/file-browser.css" />
     <link rel="stylesheet" type="text/css" href="/plugin/Printrhub/static/css/searchbar.css" />
+    <link rel="stylesheet" type="text/css" href="/plugin/Printrhub/static/css/table.css" />
+    <link rel="stylesheet" type="text/css" href="/plugin/Printrhub/static/css/create-material-button.css" />
   </head>
 
   <body>
@@ -17,9 +19,10 @@
       <!-- This empty space is for the sidebar, to maintain a fixed margin  -->
       <div class="EMPTY-SPACE-FOR-SIDEBAR" >&nbsp;</div>
 
-      {% include '/html/file-browser.jinja2' %}
+      {% block browser_container %}
 
-      {% block materials %}
+        {% include '/html/file-browser.jinja2' %}
+
       {% endblock %}
 
     </div> <!-- container -->

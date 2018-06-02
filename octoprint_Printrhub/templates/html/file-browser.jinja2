@@ -1,13 +1,10 @@
 <div class="browser column">
 
-  <div id="printrbar">
-    <h1> PROJECTS LIBRARY </h1>
-
-    <div class="searchbar">
-      <input type="text" class="form-control search-field" placeholder="search">
-    </div>
-
-  </div> <!-- printrbar -->
+  {% set printrbar_title = 'PROJECTS LIBRARY' %}
+  {% include 'html/printrbar.jinja2' %}
+  <div class="searchbar">
+    <input type="text" class="form-control search-field" placeholder="search">
+  </div>
 
   <div id="content">
     <p> This is not Printrhub. It doesn't really look like it either</p>

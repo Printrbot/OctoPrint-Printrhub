@@ -135,12 +135,12 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
     def render_status(self):
         """
         This is the URL that shows the printer status page.
-        This is where we'll show the 'loaded' gcode file, 
-        printer status, and where you start a print. 
+        This is where we'll show the 'loaded' gcode file,
+        printer status, and where you start a print.
         We may eventually want this to be default, at root, though.
         """
         from flask import make_response, render_template
-        
+
         self._logger.info("Rendering printer status page")
         return make_response(render_template("printrhub_status.jinja2"))
 
@@ -150,10 +150,10 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
     def render_settings(self):
         """
         This is the URL that shows the settings.
-        We'll use it to set hostname, wifi, etc. 
+        We'll use it to set hostname, wifi, etc.
         """
         from flask import make_response, render_template
-        
+
         self._logger.info("Rendering printer settings page")
         return make_response(render_template("printrhub_settings.jinja2"))
 
@@ -164,10 +164,10 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
         """
         This is the URL that shows the materials.
         We'll use it to set filament type, which will
-        eventually feed into the slicer. 
+        eventually feed into the slicer.
         """
         from flask import make_response, render_template
-        
+
         self._logger.info("Rendering printer materials page")
         return make_response(render_template("printrhub_materials.jinja2"))
 
@@ -177,15 +177,15 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
     def render_about(self):
         """
         This is the URL that shows the about page.
-        We'll use it to honor our contributors and credit 
+        We'll use it to honor our contributors and credit
         the software we're using to build this.
         """
         from flask import make_response, render_template
-        
+
         self._logger.info("Rendering printer a-boot page")
         return make_response(render_template("printrhub_about.jinja2"))
-    
-    # No decorator needed, this renders root ("/") by default. 
+
+    # No decorator needed, this renders root ("/") by default.
     def on_ui_render(self, now, request, render_kwargs):
         """
         this is where the Printrbot UI is rendered by the plugin. Right now
