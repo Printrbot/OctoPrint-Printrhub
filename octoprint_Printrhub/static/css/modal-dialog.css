@@ -2,12 +2,14 @@
 /* Background of dialog */
 #modal-dialog {
   display: none;  /* hidden by default */
-  position: fixed; /* Stay in place */
+  position: absolute; /* Stay in place */
   z-index: 1; /* Sit on top */
 
   background-color: rgba(43, 48, 56,0.4); /* Whitek w/ opacity */
 
   overflow: hidden; /* no scrolling */
+  top:0;
+  left:0;
   width: 100%;
   height: 100%;
 
