@@ -1,12 +1,9 @@
 .searchbar {
   height: 25px;
-  /* width: 100%; */
-  /* padding-left: 5px; */
-  /* padding-right: 5px; */
   padding-top: 5px;
   margin-top: 10px;
   margin-bottom: 10px;
-  margin-right: 10px;
+  margin-right: 30px;
 
   border-radius: 3px;
 

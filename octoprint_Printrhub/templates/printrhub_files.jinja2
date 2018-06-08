@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="/plugin/Printrhub/static/css/create-material-button.css" />
     <link rel="stylesheet" type="text/css" href="/plugin/Printrhub/static/css/printrbar.css" />
     <link rel="stylesheet" type="text/css" href="/plugin/Printrhub/static/css/browser-form.css" />
+    <link rel="stylesheet" type="text/css" href="/plugin/Printrhub/static/css/modal-dialog.css" />
   </head>
 
   <body>
@@ -24,6 +25,10 @@
       {% block browser_container %}
 
         {% include 'printrhub_file-browser.jinja2' %}
+
+        {% set dialog_title = 'CREATE PROJECT' %}
+        {% set modal_dialog_body_file = 'modal_dialogs/modal_dialogs_body_create_project.jinja2' %}
+        {% include 'modal_dialogs/modal_dialog_container.jinja2' %}
 
       {% endblock %}
 

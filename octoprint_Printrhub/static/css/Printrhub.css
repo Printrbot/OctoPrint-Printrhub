@@ -50,4 +50,6 @@ body {
 .browser {
   margin-left: 10px;
   margin-top: 10px;
+  height: 100%;
+  width: 100%;  
 }
