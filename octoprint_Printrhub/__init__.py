@@ -16,12 +16,13 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
                   octoprint.plugin.BlueprintPlugin,
                   octoprint.plugin.EventHandlerPlugin):
 
-    def __init__(self):
-        # Fixme: maybe this is unnecessary and gets removed.
-        # Test what happens when the PrintrhubUI setting is manually
-        # removed from the config.yaml file. 
-        self._PrintrhubUI = True
-
+#    def __init__(self):
+#        # Fixme: maybe this is unnecessary and gets removed.
+#        # Test what happens when the PrintrhubUI setting is manually
+#        # removed from the config.yaml file. 
+#        #self._PrintrhubUI = True
+#        pass
+        
 #    def get_settings_defaults(self):
 #        """ 
 #        Default settings for the Printrhub UI Plugin.
@@ -74,7 +75,8 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
         else:
             self._PrintrhubUI = True
 
-        self._settings.set(["PrintrhubUI"], self._PrintrhubUI, force=True)
+        # Fixme: the settings aren't getting written to config.yaml.
+        self._settings.set_boolean(["PrintrhubUI"], False)
         return flask.redirect(flask.url_for("index"), code=303)
         
     def on_startup(self, host, port):
