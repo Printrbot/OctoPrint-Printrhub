@@ -17,8 +17,23 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
                   octoprint.plugin.EventHandlerPlugin):
 
     def __init__(self):
+        # Fixme: maybe this is unnecessary and gets removed.
+        # Test what happens when the PrintrhubUI setting is manually
+        # removed from the config.yaml file. 
         self._PrintrhubUI = True
 
+#    def get_settings_defaults(self):
+#        """ 
+#        Default settings for the Printrhub UI Plugin.
+#        These are loaded by default when the plugin is first installed
+#        or when the system is re-initialized.
+#        ""
+#        Note: I removed this because it was obliterating the settings
+#        need to research more. 
+#        
+#        return dict(
+#            PrintrhubUI=True
+#        )
     
     # note: this path /upload is relative to the plugin root,
     # so it is located at ./plugin/Printrhub/upload
@@ -49,6 +64,19 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
         # return a redirect to the main page, upload received. 
         return flask.redirect(flask.url_for("index"), code=303)
 
+    @octoprint.plugin.BlueprintPlugin.route("/toggleUI", methods=["GET", "POST"])
+    def toggle_UI(self):
+        """
+        Turn the Printrhub UI on or off.
+        """
+        if self._PrintrhubUI == True:
+            self._PrintrhubUI = False
+        else:
+            self._PrintrhubUI = True
+
+        self._settings.set(["PrintrhubUI"], self._PrintrhubUI, force=True)
+        return flask.redirect(flask.url_for("index"), code=303)
+        
     def on_startup(self, host, port):
         self._PrintrhubUI = self._settings.get(["PrintrhubUI"])
     
@@ -60,8 +88,8 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
         If this function returns True, the standard OctoPrint UI is disabled.
         The plugin's UI will be drawn via on_ui_render.
         """
-        # Fixme: add logic (and a toggle) to allow switching between
-        # OctoPrint UI and Printrbot UI.
+        # Fixme: this only controls UI for 'root' URL. If the user tries to
+        # open one of the other, deeper links, they still render (for now)
         return self._PrintrhubUI
 
     def on_event(self, event, payload):
