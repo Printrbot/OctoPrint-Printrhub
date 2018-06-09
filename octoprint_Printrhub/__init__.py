@@ -9,12 +9,17 @@ import subprocess
 # Plugin identifier is "Printrhub"
 
 class PrintrhubUI(octoprint.plugin.StartupPlugin,
+                  octoprint.plugin.SettingsPlugin,
                   octoprint.plugin.UiPlugin,
                   octoprint.plugin.TemplatePlugin,
                   octoprint.plugin.AssetPlugin,
                   octoprint.plugin.BlueprintPlugin,
                   octoprint.plugin.EventHandlerPlugin):
 
+    def __init__(self):
+        self._PrintrhubUI = True
+
+    
     # note: this path /upload is relative to the plugin root,
     # so it is located at ./plugin/Printrhub/upload
     @octoprint.plugin.BlueprintPlugin.route("/upload", methods=["POST"])
@@ -43,7 +48,10 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
         
         # return a redirect to the main page, upload received. 
         return flask.redirect(flask.url_for("index"), code=303)
-        
+
+    def on_startup(self, host, port):
+        self._PrintrhubUI = self._settings.get(["PrintrhubUI"])
+    
     def on_after_startup(self):
         self._logger.info("Printrhub UI successfully running.")
         
@@ -54,7 +62,7 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
         """
         # Fixme: add logic (and a toggle) to allow switching between
         # OctoPrint UI and Printrbot UI.
-        return True
+        return self._PrintrhubUI
 
     def on_event(self, event, payload):
         """
