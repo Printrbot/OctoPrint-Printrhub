@@ -7,6 +7,13 @@
   {% set printrbar_title = 'PRINTER STATUS' %}
   {% include 'html/printrbar.jinja2' %}
 
+  <div class="status_info">
+    <p> Printer status: {{printer_data["state"]["text"]}} </p>
+    <p> Current file: {{printer_data["job"]["file"]["name"]}} </p>
+    <p> Estimated Print Time: {{printer_data["progress"]["printTime"]}} </p>
+    <p> Estimated Time Remaining: {{printer_data["progress"]["printTimeLeft"]}}</p>
+  </div>
+
 </div>
 
 {% endblock %}

@@ -9,12 +9,33 @@ import subprocess
 # Plugin identifier is "Printrhub"
 
 class PrintrhubUI(octoprint.plugin.StartupPlugin,
+                  octoprint.plugin.SettingsPlugin,
                   octoprint.plugin.UiPlugin,
                   octoprint.plugin.TemplatePlugin,
                   octoprint.plugin.AssetPlugin,
                   octoprint.plugin.BlueprintPlugin,
                   octoprint.plugin.EventHandlerPlugin):
 
+#    def __init__(self):
+#        # Fixme: maybe this is unnecessary and gets removed.
+#        # Test what happens when the PrintrhubUI setting is manually
+#        # removed from the config.yaml file. 
+#        #self._PrintrhubUI = True
+#        pass
+        
+#    def get_settings_defaults(self):
+#        """ 
+#        Default settings for the Printrhub UI Plugin.
+#        These are loaded by default when the plugin is first installed
+#        or when the system is re-initialized.
+#        ""
+#        Note: I removed this because it was obliterating the settings
+#        need to research more. 
+#        
+#        return dict(
+#            PrintrhubUI=True
+#        )
+    
     # note: this path /upload is relative to the plugin root,
     # so it is located at ./plugin/Printrhub/upload
     @octoprint.plugin.BlueprintPlugin.route("/upload", methods=["POST"])
@@ -45,21 +66,40 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
         return flask.redirect(flask.url_for("index"), code=303)
 
 
-    """
-    @octoprint.plugin.BlueprintPlugin.route("/show/<filename>", methods=["GET"])
-    def get_uploaded_file(filename):
-        from flask import render_template
+    @octoprint.plugin.BlueprintPlugin.route("/toggleUI", methods=["GET", "POST"])
+    def toggle_UI(self):
+        """
+        Turn the Printrhub UI on or off.
+        """
+        if self._PrintrhubUI == True:
+            self._PrintrhubUI = False
+        else:
+            self._PrintrhubUI = True
 
-        filename = '/static/img/' + filename + ".png"
-        return make_repsonse(render_template('get_uploaded_file.jinja2', filename=filename))
+        # Fixme: the settings aren't getting written to config.yaml.
+        self._settings.set_boolean(["PrintrhubUI"], False)
+        return flask.redirect(flask.url_for("index"), code=303)
+        
+    def on_startup(self, host, port):
+        self._PrintrhubUI = self._settings.get(["PrintrhubUI"])
+    
 
-    @octoprint.plugin.BlueprintPlugin.errorhandler(404)
-    def image_not_found(error):
-        from flask import render_template
+    # Fixme: These are merges from Kelly's UI work (WIP stuff)
+    # Brian/Kelly to discuss and implement.
 
-        self._logger.info("*** 404 image_not_found ***")
-        return make_repsonse(render_template('noimage_thumb.jinja2'), 404)
-    """
+#    @octoprint.plugin.BlueprintPlugin.route("/show/<filename>", methods=["GET"])
+#    def get_uploaded_file(filename):
+#        from flask import render_template
+#
+#        filename = '/static/img/' + filename + ".png"
+#        return make_response(render_template('get_uploaded_file.jinja2', filename=filename))
+#
+#    @octoprint.plugin.BlueprintPlugin.errorhandler(404)
+#    def image_not_found(error):
+#        from flask import render_template
+#
+#        self._logger.info("*** 404 image_not_found ***")
+#        return make_response(render_template('noimage_thumb.jinja2'), 404)
 
     def on_after_startup(self):
         self._logger.info("Printrhub UI successfully running.")
@@ -69,9 +109,9 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
         If this function returns True, the standard OctoPrint UI is disabled.
         The plugin's UI will be drawn via on_ui_render.
         """
-        # Fixme: add logic (and a toggle) to allow switching between
-        # OctoPrint UI and Printrbot UI.
-        return True
+        # Fixme: this only controls UI for 'root' URL. If the user tries to
+        # open one of the other, deeper links, they still render (for now)
+        return self._PrintrhubUI
 
     def on_event(self, event, payload):
         """
@@ -143,8 +183,50 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
         """
         from flask import make_response, render_template
 
+        printer_data = self._printer.get_current_data()
+
+        """
+        Most of these values are NoneType when no print is in progress
+
+        Printer state format:
+          progress:
+            completion:       
+            filepos:          
+            printTime:        
+            printTimeLeft:    
+            printTimeOrigin:  
+          state:
+            text:             // Human readable printer state
+            flags:
+              cancelling:     // Bool
+              paused:         // Bool
+              operational:    // Bool
+              pausing:        // Bool
+              printing:       // Bool
+              sdReady:        // Bool
+              error:          // Bool
+              ready:          // Bool
+              closedOrError:  // Bool
+            currentZ:         
+            job: 
+              estimatedPrintTime:
+              filament: 
+                volume: 
+                length: 
+              file: 
+                date: 
+                origin: 
+                size: 
+                name: 
+                path: 
+              lastPrintTime: 
+              offsets: 
+        """ 
+        
         self._logger.info("Rendering printer status page")
-        return make_response(render_template("printrhub_status.jinja2"))
+        #self._logger.info(printer_data)
+        return make_response(render_template("printrhub_status.jinja2",
+                                             printer_data=printer_data))
 
     # note: this path /settings is relative to the plugin root,
     # so it is located at ./plugin/Printrhub/settings
@@ -184,7 +266,7 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
         """
         from flask import make_response, render_template
 
-        self._logger.info("Rendering printer a-boot page")
+        self._logger.info("Rendering Minifactory Page")
         return make_response(render_template("printrhub_minifactory.jinja2"))
 
     # note: this path /about is relative to the plugin root,
@@ -198,7 +280,7 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
         """
         from flask import make_response, render_template
 
-        self._logger.info("Rendering printer a-boot page")
+        self._logger.info("Rendering Thingiverse Page")
         return make_response(render_template("printrhub_thingiverse.jinja2"))
 
     # note: this path /about is relative to the plugin root,
