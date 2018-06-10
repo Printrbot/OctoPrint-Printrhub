@@ -224,7 +224,7 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
         """
         from flask import make_response, render_template
 
-        self._logger.info("Rendering printer a-boot page")
+        self._logger.info("Rendering Minifactory Page")
         return make_response(render_template("printrhub_minifactory.jinja2"))
 
     # note: this path /about is relative to the plugin root,
@@ -238,7 +238,7 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
         """
         from flask import make_response, render_template
 
-        self._logger.info("Rendering printer a-boot page")
+        self._logger.info("Rendering Thingiverse Page")
         return make_response(render_template("printrhub_thingiverse.jinja2"))
 
     # note: this path /about is relative to the plugin root,
