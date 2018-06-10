@@ -41,11 +41,11 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
     @octoprint.plugin.BlueprintPlugin.route("/upload", methods=["POST"])
     def upload_file(self):
         """
-        This section handles file uploads. If you are working on the frontend 
+        This section handles file uploads. If you are working on the frontend
         it may be easier and better to pass your upload to the OctoPrint API
         directly
         """
-        
+
         self._logger.info("File upload page")
 
         upload_name = flask.request.values.get("file.name", None)
@@ -65,6 +65,7 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
         # return a redirect to the main page, upload received. 
         return flask.redirect(flask.url_for("index"), code=303)
 
+
     @octoprint.plugin.BlueprintPlugin.route("/toggleUI", methods=["GET", "POST"])
     def toggle_UI(self):
         """
@@ -82,9 +83,27 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
     def on_startup(self, host, port):
         self._PrintrhubUI = self._settings.get(["PrintrhubUI"])
     
+
+    # Fixme: These are merges from Kelly's UI work (WIP stuff)
+    # Brian/Kelly to discuss and implement.
+
+#    @octoprint.plugin.BlueprintPlugin.route("/show/<filename>", methods=["GET"])
+#    def get_uploaded_file(filename):
+#        from flask import render_template
+#
+#        filename = '/static/img/' + filename + ".png"
+#        return make_response(render_template('get_uploaded_file.jinja2', filename=filename))
+#
+#    @octoprint.plugin.BlueprintPlugin.errorhandler(404)
+#    def image_not_found(error):
+#        from flask import render_template
+#
+#        self._logger.info("*** 404 image_not_found ***")
+#        return make_response(render_template('noimage_thumb.jinja2'), 404)
+
     def on_after_startup(self):
         self._logger.info("Printrhub UI successfully running.")
-        
+
     def will_handle_ui(self, request):
         """
         If this function returns True, the standard OctoPrint UI is disabled.
@@ -97,7 +116,7 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
     def on_event(self, event, payload):
         """
         on_event allows us to hook into system events. Specifically, the
-        plugin needs to know when a file is added to the system so that it 
+        plugin needs to know when a file is added to the system so that it
         can render an STL preview (via FauxGL)
         """
 
@@ -116,10 +135,10 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
             script_path = self._basefolder + "/stl_preview.go"
             self._logger.info(script_path)
             my_result = ""
-            try: 
+            try:
                 # fixme: this is dangerous and hacked.
                 # dangerous: running as shell.
-                # Fixme: gopath should be a config setting. 
+                # Fixme: gopath should be a config setting.
                 env = {'GOPATH': r'/home/pi/gocode'}
                 my_result = subprocess.check_output("go run " + script_path + " --input " + stl_path + " --output " + out_path,
                                                     shell=True,
@@ -131,15 +150,21 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
                 self._logger.info(e.output)
                 self._logger.info(e.cmd)
                 self._logger.info(e.returncode)
-                
+
             self._logger.info(my_result)
-            
+
     def get_assets(self):
         # fixme: before making "prod" commit, change config yaml
-        # to bundle, and check in CSS files. 
+        # to bundle, and check in CSS files.
         return dict(
-            css=["css/Printrhub.css"],
-            less=["less/Printrhub.less"]
+            css=[   "css/Printrhub.css",
+                    "css/searchbar.css",
+                    "css/file-browser.css",
+                    "css/sidebar.css",
+                    "css/create-material-button.css",
+                    "css/table.css"],
+            #html=[  "html/materials.html"],
+            #less=["less/Printrhub.less"],
         )
 
 
@@ -152,12 +177,12 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
     def render_status(self):
         """
         This is the URL that shows the printer status page.
-        This is where we'll show the 'loaded' gcode file, 
-        printer status, and where you start a print. 
+        This is where we'll show the 'loaded' gcode file,
+        printer status, and where you start a print.
         We may eventually want this to be default, at root, though.
         """
         from flask import make_response, render_template
-        
+
         self._logger.info("Rendering printer status page")
         return make_response(render_template("printrhub_status.jinja2"))
 
@@ -167,10 +192,10 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
     def render_settings(self):
         """
         This is the URL that shows the settings.
-        We'll use it to set hostname, wifi, etc. 
+        We'll use it to set hostname, wifi, etc.
         """
         from flask import make_response, render_template
-        
+
         self._logger.info("Rendering printer settings page")
         return make_response(render_template("printrhub_settings.jinja2"))
 
@@ -181,12 +206,40 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
         """
         This is the URL that shows the materials.
         We'll use it to set filament type, which will
-        eventually feed into the slicer. 
+        eventually feed into the slicer.
         """
         from flask import make_response, render_template
-        
+
         self._logger.info("Rendering printer materials page")
         return make_response(render_template("printrhub_materials.jinja2"))
+
+    # note: this path /about is relative to the plugin root,
+    # so it is located at ./plugin/Printrhub/about
+    @octoprint.plugin.BlueprintPlugin.route("/minifactory", methods=["GET"])
+    def render_minifactory(self):
+        """
+        This is the URL that shows the about page.
+        We'll use it to honor our contributors and credit
+        the software we're using to build this.
+        """
+        from flask import make_response, render_template
+
+        self._logger.info("Rendering printer a-boot page")
+        return make_response(render_template("printrhub_minifactory.jinja2"))
+
+    # note: this path /about is relative to the plugin root,
+    # so it is located at ./plugin/Printrhub/about
+    @octoprint.plugin.BlueprintPlugin.route("/thingiverse", methods=["GET"])
+    def render_thingiverse(self):
+        """
+        This is the URL that shows the about page.
+        We'll use it to honor our contributors and credit
+        the software we're using to build this.
+        """
+        from flask import make_response, render_template
+
+        self._logger.info("Rendering printer a-boot page")
+        return make_response(render_template("printrhub_thingiverse.jinja2"))
 
     # note: this path /about is relative to the plugin root,
     # so it is located at ./plugin/Printrhub/about
@@ -194,17 +247,17 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
     def render_about(self):
         """
         This is the URL that shows the about page.
-        We'll use it to honor our contributors and credit 
+        We'll use it to honor our contributors and credit
         the software we're using to build this.
         """
         from flask import make_response, render_template
-        
+
         self._logger.info("Rendering printer a-boot page")
         return make_response(render_template("printrhub_about.jinja2"))
-    
-    # No decorator needed, this renders root ("/") by default. 
+
+    # No decorator needed, this renders root ("/") by default.
     def on_ui_render(self, now, request, render_kwargs):
-        """ 
+        """
         this is where the Printrbot UI is rendered by the plugin. Right now
         it just handles UI when the root URL is called. We can add additional
         paths (like with upload_file) that use a path decorator to add other
@@ -227,13 +280,18 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
 
     def bodysize_hook(self, current_max_body_sizes, *args, **kwargs):
         """
-        because upload_file takes in an STL file that can get big, we need to 
+        because upload_file takes in an STL file that can get big, we need to
         override the default file size of 100k that Octoprint enforces.
         """
-        
+
         # fixme: do the math and pick a reasonable size.
         return [("POST", r"/upload", 20 * 1024 * 1024)]
-    
+
+#    def get_template_configs(self):
+#        return  [
+#            dict(type="materials", custom_bindings=False)
+#                ]
+
 
 __plugin_name__ = "Printrhub"
 

@@ -1,55 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title> This is not Printrbot Cloud </title>
+    <title>Printrbot</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/plugin/Printrhub/static/css/Printrhub.css" />
+    <link rel="stylesheet" type="text/css" href="/plugin/Printrhub/static/css/sidebar.css" />
+    <link rel="stylesheet" type="text/css" href="/plugin/Printrhub/static/css/file-browser.css" />
+    <link rel="stylesheet" type="text/css" href="/plugin/Printrhub/static/css/searchbar.css" />
+    <link rel="stylesheet" type="text/css" href="/plugin/Printrhub/static/css/table.css" />
+    <link rel="stylesheet" type="text/css" href="/plugin/Printrhub/static/css/create-material-button.css" />
+    <link rel="stylesheet" type="text/css" href="/plugin/Printrhub/static/css/printrbar.css" />
+    <link rel="stylesheet" type="text/css" href="/plugin/Printrhub/static/css/browser-form.css" />
+    <link rel="stylesheet" type="text/css" href="/plugin/Printrhub/static/css/modal-dialog.css" />
+    <link rel="stylesheet" type="text/css" href="/plugin/Printrhub/static/css/modal-dialog-create-project.css" />
   </head>
+
   <body>
     <div class="container">
-      <div class="sidebar">
-	<ul>
-	  <li><a href="/">
-	      <img src="/plugin/Printrhub/static/img/files.svg"> </img>
-	  </a></li>
-	  <li><a href="/plugin/Printrhub/status?apikey=">
-	      <img src="/plugin/Printrhub/static/img/status.svg"> </img>
-	  </a></li>
-	  <li><a href="/plugin/Printrhub/materials?apikey=">
-	      <img src="/plugin/Printrhub/static/img/materials.svg"> </img>
-	  </a></li>
-	  <li><a href="/plugin/Printrhub/settings?apikey=">
-	      <img src="/plugin/Printrhub/static/img/settings.svg"></img>
-	  </a></li>
-	  <li><a href="/plugin/Printrhub/about?apikey=">
-	      <img src="/plugin/Printrhub/static/img/about.svg"></img>
-	  </a></li>
-	</ul>
-      </div> <!-- sidebar --> 
-      <div class="browser"> 
-	<div id="printrbar">
-	  <h1> PROJECTS LIBRARY </h1>
-	</div> <!-- printrbar -->
-	<div id="content">
-	  <p> This is not Printrhub. It doesn't really look like it either</p>
-	  <p> Here are the files loaded on this system: </p>
-	  <ul>
-	    {% for file in files['local'] %}
-	    <li> <p>{{file}}</p><img src="/plugin/Printrhub/static/img/{{file}}.png" height="248" width="253"</img> </li>
-	    {% endfor %}
-	  </ul>
-	</div> <!-- content -->
-	<div id="form">
-	  <form action="plugin/Printrhub/upload?apikey=" method="post" enctype="multipart/form-data">
-	    <div>
-	      <label for="file">Choose file to upload</label>
-	      <input type="file" id="file" name="file"/>
-	    </div>
-	    <div>
-	      <button>Submit</button>
-	    </div>
-	  </form>
-	</div> <!-- form -->
-      </div> <!-- browser --> 
+
+      {% include '/html/sidebar.jinja2' %}
+
+      <!-- This empty space is for the sidebar, to maintain a fixed margin  -->
+      <!--<div id="EMPTY-SPACE-FOR-SIDEBAR" >&nbsp;</div>-->
+
+      {% block browser_container %}
+
+        {% include 'printrhub_file-browser.jinja2' %}
+
+      {% endblock %}
+
     </div> <!-- container -->
+
   </body>
 </html>
