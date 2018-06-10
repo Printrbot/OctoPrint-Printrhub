@@ -183,8 +183,50 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
         """
         from flask import make_response, render_template
 
+        printer_data = self._printer.get_current_data()
+
+        """
+        Most of these values are NoneType when no print is in progress
+
+        Printer state format:
+          progress:
+            completion:       
+            filepos:          
+            printTime:        
+            printTimeLeft:    
+            printTimeOrigin:  
+          state:
+            text:             // Human readable printer state
+            flags:
+              cancelling:     // Bool
+              paused:         // Bool
+              operational:    // Bool
+              pausing:        // Bool
+              printing:       // Bool
+              sdReady:        // Bool
+              error:          // Bool
+              ready:          // Bool
+              closedOrError:  // Bool
+            currentZ:         
+            job: 
+              estimatedPrintTime:
+              filament: 
+                volume: 
+                length: 
+              file: 
+                date: 
+                origin: 
+                size: 
+                name: 
+                path: 
+              lastPrintTime: 
+              offsets: 
+        """ 
+        
         self._logger.info("Rendering printer status page")
-        return make_response(render_template("printrhub_status.jinja2"))
+        #self._logger.info(printer_data)
+        return make_response(render_template("printrhub_status.jinja2",
+                                             printer_data=printer_data))
 
     # note: this path /settings is relative to the plugin root,
     # so it is located at ./plugin/Printrhub/settings
