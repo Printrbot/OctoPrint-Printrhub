@@ -18,19 +18,21 @@
   align-items: center;
 }
 
+/* Actual modal pop-up dialog */
 #modal-content {
     background-color: #fefefe;
-    margin: auto;
     border: 1px solid #888;
 
     /* Defines size of Dialog */
     min-width: 20%;
     min-height: 10%;
+    max-width: 600px;
+    max-height: 346px;
 
     width: 80%;
     height: 40%;
 
-    margin-left: 14%;
+    margin-left: 12%;
 
     display: flex;
     flex-direction: column;
