@@ -1,0 +1,156 @@
+
+
+{% extends 'printrhub_files.jinja2' %}
+
+{% block browser_container %}
+
+<div class="browser column">
+
+  {% set printrbar_title = 'MATERIALS LIBRARY' %}
+  {% include 'html/printrbar.jinja2' %}
+
+  <div id="table">
+
+  <table class="table table-striped">
+      <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Brand</th>
+            <th>Print Temperature</th>
+            <th>Speed</th>
+            <th>Fan</th>
+            <th>Retraction</th>
+            <th></th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr>
+          <td><b>Printrbot PLA</b></td>
+          <td>PLA</td>
+          <td>printrbot</td>
+          <td>205</td>
+          <td>100%</td>
+          <td><i class="fa fa-check"></i></td>
+          <td><i class="fa fa-check"></i></td>
+          <td style="width:30px"><button class="material btn btn-sm" idx="0"><i class="fa fa-edit"></i></button></td>
+        </tr>
+
+        <tr>
+          <td><b>NinjaFlex</b></td>
+          <td>Flexible</td>
+          <td>NinjaFlex</td>
+          <td>235</td>
+          <td>50%</td>
+          <td></td>
+          <td><i class="fa fa-check"></i></td>
+          <td style="width:30px"><button class="material btn btn-sm" idx="1"><i class="fa fa-edit"></i></button></td>
+        </tr>
+
+        <tr>
+          <td><b>SemiFlex</b></td>
+          <td>Semi-Flex</td>
+          <td>NinjaFlex</td>
+          <td>230</td>
+          <td>50%</td>
+          <td></td>
+          <td><i class="fa fa-check"></i></td>
+          <td style="width:30px"><button class="material btn btn-sm" idx="2"><i class="fa fa-edit"></i></button></td>
+        </tr>
+
+        <tr>
+          <td><b>T-glase</b></td>
+          <td>PETT</td>
+          <td>Taulman</td>
+          <td>240</td>
+          <td>100%</td>
+          <td><i class="fa fa-check"></i></td>
+          <td><i class="fa fa-check"></i></td>
+          <td style="width:30px"><button class="material btn btn-sm" idx="3"><i class="fa fa-edit"></i></button></td>
+        </tr>
+
+        <tr>
+          <td><b>Bridge</b></td>
+          <td>Nylon</td>
+          <td>Taulman</td>
+          <td>250</td>
+          <td>50%</td>
+          <td><i class="fa fa-check"></i></td>
+          <td><i class="fa fa-check"></i></td>
+          <td style="width:30px"><button class="material btn btn-sm" idx="4"><i class="fa fa-edit"></i></button></td>
+        </tr>
+
+        <tr>
+          <td><b>Carbon Fiber PLA</b></td>
+          <td>Other</td>
+          <td>Proto-Pasta</td>
+          <td>205</td>
+          <td>100%</td>
+          <td><i class="fa fa-check"></i></td>
+          <td><i class="fa fa-check"></i></td>
+          <td style="width:30px"><button class="material btn btn-sm" idx="5"><i class="fa fa-edit"></i></button></td>
+        </tr>
+
+        <tr>
+          <td><b>Woodfill</b></td>
+          <td>Wood</td>
+          <td>ColorFabb</td>
+          <td>200</td>
+          <td>100%</td>
+          <td><i class="fa fa-check"></i></td>
+          <td><i class="fa fa-check"></i></td>
+          <td style="width:30px"><button class="material btn btn-sm" idx="6"><i class="fa fa-edit"></i></button></td>
+        </tr>
+
+        <tr>
+          <td><b>Taulman PCTPE</b></td>
+          <td>PCTPE</td>
+          <td>Taulman</td>
+          <td>235</td>
+          <td>75%</td>
+          <td><i class="fa fa-check"></i></td>
+          <td><i class="fa fa-check"></i></td>
+          <td style="width:30px"><button class="material btn btn-sm" idx="7"><i class="fa fa-edit"></i></button></td>
+        </tr>
+
+        <tr>
+          <td><b>Printrbot ABS</b></td>
+          <td>ABS</td>
+          <td>Printrbot</td>
+          <td>220</td>
+          <td>100%</td>
+          <td></td>
+          <td><i class="fa fa-check"></i></td>
+          <td style="width:30px"><button class="material btn btn-sm" idx="8"><i class="fa fa-edit"></i></button></td>
+        </tr>
+
+        <tr>
+          <td><b>PLA++</b></td>
+          <td>PLA++</td>
+          <td>Breathe-3dp</td>
+          <td>200</td>
+          <td>100%</td>
+          <td><i class="fa fa-check"></i></td>
+          <td><i class="fa fa-check"></i></td>
+          <td style="width:30px"><button class="material btn btn-sm" idx="9"><i class="fa fa-edit"></i></button></td>
+        </tr>
+
+      </tbody>
+    </table>
+
+  </div> <!-- table -->
+
+
+  <div class="materials">
+    <button class="btn btn-default material">
+      <i class="fa fa-plus">
+      </i>
+    </button>
+  <div>
+
+</div> <!-- browser -->
+
+
+
+{% endblock %}
