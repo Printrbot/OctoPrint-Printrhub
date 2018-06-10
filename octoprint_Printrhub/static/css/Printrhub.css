@@ -34,7 +34,7 @@ body {
   margin: 0;
 }
 
-.container {
+.printrbot_container {
   position: relative;
   display: flex;
   flex-direction: row;
@@ -51,5 +51,5 @@ body {
   margin-left: 10px;
   margin-top: 10px;
   height: 100%;
-  width: 100%;  
+  width: 100%;
 }
