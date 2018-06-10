@@ -13,7 +13,9 @@
   width: 100%;
   height: 100%;
 
+  justify-content: center;
   align-content: center;
+  align-items: center;
 }
 
 #modal-content {
@@ -24,6 +26,11 @@
     /* Defines size of Dialog */
     min-width: 20%;
     min-height: 10%;
+
+    width: 80%;
+    height: 40%;
+
+    margin-left: 14%;
 
     display: flex;
     flex-direction: column;
@@ -62,8 +69,23 @@
 
 /* Button on browser that opens the dialog */
 #openBtn {
-  width: 100px;
-  height: 40px;
+  color: #C2C2C2;
+  background-color: transparent;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+}
+
+#openBtn-text {
+  margin-top: 10px;
+  font-size: 16px;
+  line-height: 37px;
+  color: #555;
 }
 
 /* Cancel, save buttons, delete */

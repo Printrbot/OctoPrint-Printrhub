@@ -2,10 +2,11 @@
 {% set isOkBtnExists = true %}
 
 <!-- Launches dialog -->
-<button type="button" id="openBtn" class="btn btn-primary">
-  <i class="fa fa-check"></i>
-  OPEN
-</button>
+<a id="openBtn" class="btn btn-primary fa-3x">
+  <!--<i class="fas fa-plus" data-fa-transform="shrink-5" data-fa-mask="fas fa-circle" ></i>-->
+  <i class="fas fa-plus-circle"></i>
+  <div id="openBtn-text">{{dialog_open_button_text}}</div>
+</a>
 
 <div id="modal-dialog">
   <div id="modal-content">
