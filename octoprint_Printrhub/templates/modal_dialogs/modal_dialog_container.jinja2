@@ -46,16 +46,16 @@
   var cancelBtn = document.getElementById("cancelBtn");
 
   openBtn.onclick = function() {
-      modalDialog.style.display = "flex";
+    modalDialog.style.display = "flex";
   }
 
   cancelBtn.onclick = function() {
-      modalDialog.style.display = "none";
+    modalDialog.style.display = "none";
   }
 
   window.onclick = function(event) {
-      if (event.target == modalDialog) {
-          modalDialog.style.display = "none";
-      }
+    if (event.target == modalDialog) {
+        modalDialog.style.display = "none";
+    }
   }
 </script>

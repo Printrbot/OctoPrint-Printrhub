@@ -1,14 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-      <title> - My Webpage</title>
-  </head>
-  <body>
-    <h1>something here</h1>
+{% extends 'printrhub_files.jinja2' %}
 
-    <div id="content">
-      {% block materials %}{% endblock %}
+{% block browser_container %}
+
+<div class="browser column">
+
+  {% set printrbar_title = 'PRINTER SETTINGS' %}
+  {% include 'html/printrbar.jinja2' %}
+
+</div>
+
+{% endblock %}
+
+
+
+<div class="file-item-container">
+  <div class="file-item">
+
+    <div class="file-item-preview">
+      <img class="file-item" src="/plugin/Printrhub/static/img/{{file}}.png" /> </img>
     </div>
-    
-  </body>
-</html>
+    <div class="file-item-bar">
+      <p>{{file}}</p>
+    </div>
+
+  </div>
+</div>
