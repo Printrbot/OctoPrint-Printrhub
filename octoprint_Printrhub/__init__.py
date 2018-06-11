@@ -128,6 +128,7 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
             stl_path = self._file_manager.path_on_disk(payload["storage"],
                                                        payload["path"])
             self._logger.info(stl_path)
+            
             # not sure if static folder is better than datafolder,
             # but using the static folder for now.
             out_path = self._basefolder + "/static/img/" + payload["path"] + ".png"
@@ -135,24 +136,30 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
             script_path = self._basefolder + "/stl_preview.go"
             self._logger.info(script_path)
             my_result = ""
-            try:
-                # fixme: this is dangerous and hacked.
-                # dangerous: running as shell.
-                # Fixme: gopath should be a config setting.
-                env = {'GOPATH': r'/home/pi/gocode'}
-                my_result = subprocess.check_output("go run " + script_path + " --input " + stl_path + " --output " + out_path,
-                                                    shell=True,
-                                                    stderr=subprocess.STDOUT,
-                                                    env=env)
-            except subprocess.CalledProcessError as e:
-                self._logger.info ("something went wrong")
-                my_result = e.output
-                self._logger.info(e.output)
-                self._logger.info(e.cmd)
-                self._logger.info(e.returncode)
+            
+            # don't try to render anything but an .stl file.
+            if stl_path[-4:] == '.stl': 
+                try:
+                    # fixme: this is dangerous and hacked.
+                    # dangerous: running as shell.
+                    # Fixme: gopath should be a config setting.
+                    env = {'GOPATH': r'/home/pi/gocode'}
+                    my_result = subprocess.check_output("go run " + script_path + " --input " + stl_path + " --output " + out_path,
+                                                        shell=True,
+                                                        stderr=subprocess.STDOUT,
+                                                        env=env)
+                except subprocess.CalledProcessError as e:
+                    self._logger.info ("something went wrong")
+                    my_result = e.output
+                    self._logger.info(e.output)
+                    self._logger.info(e.cmd)
+                    self._logger.info(e.returncode)
 
-            self._logger.info(my_result)
-
+                self._logger.info(my_result)
+            else:
+                # the filename does not end in .stl
+                self._logger.info("skipping filename render, not an .stl")
+            
     def get_assets(self):
         # fixme: before making "prod" commit, change config yaml
         # to bundle, and check in CSS files.
