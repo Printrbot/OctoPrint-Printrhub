@@ -7,21 +7,15 @@
   {% set printrbar_title = 'PRINTER SETTINGS' %}
   {% include 'html/printrbar.jinja2' %}
 
+  <p> This page is for settings and system configuration. </p>
+  <p> Right now, you can use this button to revert to the vanilla
+  OctoPrint UI: </p>
+  <div id="form"> <!-- form -->
+    <form method="post" action="toggleUI?apikey=">
+      <button type="submit">Disable Printrhub UI</button>
+    </form>
+  </div> <!-- form -->
+
 </div>
 
 {% endblock %}
-
-
-
-<div class="file-item-container">
-  <div class="file-item">
-
-    <div class="file-item-preview">
-      <img class="file-item" src="/plugin/Printrhub/static/img/{{file}}.png" /> </img>
-    </div>
-    <div class="file-item-bar">
-      <p>{{file}}</p>
-    </div>
-
-  </div>
-</div>
