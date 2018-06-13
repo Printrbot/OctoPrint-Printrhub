@@ -304,6 +304,8 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
         self._logger.info("Rendering printer a-boot page")
         return make_response(render_template("printrhub_about.jinja2"))
 
+    # Fixme: eventually, turn root into a "login" page that redirects
+    # when the user is logged in automatically to the file page.
     # No decorator needed, this renders root ("/") by default.
     def on_ui_render(self, now, request, render_kwargs):
         """
@@ -319,8 +321,20 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
         # Generate data for file view.
         # fixme: only needed when viewing files.
         file_data = self._file_manager.list_files()
-        self._logger.info(file_data)
+        # self._logger.info(file_data)
 
+        # Make sure the only files listed in this view are .stl
+        suppressed_files = []
+        for key in file_data['local']:
+            if not '.stl' in key:
+                suppressed_files.append(key)
+
+        self._logger.info("Not rendering these files (not .stl)")
+        self._logger.info(suppressed_files)
+
+        for not_stl in suppressed_files:
+            del file_data['local'][not_stl]
+                
         # This jinja template is kept in the templates directory in the
         # plugin folder.
         return make_response(render_template("printrhub_files.jinja2",
