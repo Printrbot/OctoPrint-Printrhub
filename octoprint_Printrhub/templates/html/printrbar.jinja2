@@ -7,7 +7,7 @@
     <div id="printrbar_dropdown">
 
       <div id="printrbar_caret">
-        <span>username</span>
+        <span id="username">USERNAME</span>
         <i class="fas fa-caret-down"></i>
       </div>
 
@@ -24,6 +24,96 @@
 </div> <!-- printrbar -->
 
 <script>
+  /* ********************************************************** Query Request */
+  const APIkey = '305D10580B3A48D2AC8B099F90C1FEE5';  //global API key (hardcoded)
+
+  const Printrhub = {
+/*
+    async test() {
+      const query = '/api/users';
+      const headerData =  JSON.stringify(
+                          {
+                          });
+
+      const response = await fetch(query, {
+                                            method: 'POST'
+                                          });
+      if (response.ok) {
+        const jsonResponse = await response.json();
+        console.log(jsonResponse);
+
+      } else {
+        console.log('Something terrible has gone wrong!');
+      }
+    },
+*/
+  /*
+    async genAndGetNewApiKey() {
+      const user = await Printrhub.getUserName();
+      if (user === undefined) {
+        return undefined;
+      }
+      console.log(user);
+
+      const query = `/api/users/${user}/apikey`;
+      const headerData =  JSON.stringify(
+                          {
+                          });
+
+      const response = await fetch(query, {
+                                            method: 'POST'
+                                          });
+      if (response.ok) {
+        const jsonResponse = await response.json();
+        console.log(jsonResponse);
+
+      } else {
+        console.log('Something terrible has gone wrong!');
+      }
+    },
+    */
+
+    async getUserName() {
+      var usernameComponent = document.getElementById('username');
+      const query = `/api/users?apikey=${APIkey}`;
+      const headerData =  JSON.stringify(
+                          {
+                          });
+
+      const response = await fetch(query, {
+                                            method: 'GET'
+                                          });
+      if (response.ok) {
+        const jsonResponse = await response.json();
+        //console.log(jsonResponse);
+
+        const users = jsonResponse.users;
+        //cont numUsers = users.length;
+        const activeUser = users.find( x => { return x.active == true; });
+
+        if (activeUser === undefined) {
+          // NEED TO LOGIN
+          usernameComponent.innerHTML = 'Please login';
+
+        } else {
+          // SUCCESS!
+          usernameComponent.innerHTML = activeUser.name;
+          return activeUser.name;
+        }
+
+      } else {
+        console.log('Something terrible has gone wrong!');
+      }
+      return undefined;
+    }
+  }
+
+  //http://192.168.0.14:5000/plugin/Printrhub/toggleUI?apikey=
+  //document.onload = Printrhub.test();
+  //document.onload = Printrhub.genAndGetNewApiKey();
+  document.onload = Printrhub.getUserName();
+
+  /* ********************************************************** Drop down menu */
   var dropdownmenu = document.getElementById('printrbar_dropdown-menu');
   var caret = document.getElementById("printrbar_caret");
 
@@ -41,4 +131,6 @@
         dropdownmenu.style.display = "none";
     }
   }
+
+
 </script>
