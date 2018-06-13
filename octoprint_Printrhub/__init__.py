@@ -66,7 +66,8 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
         return flask.redirect(flask.url_for("index"), code=303)
 
 
-    @octoprint.plugin.BlueprintPlugin.route("/toggleUI", methods=["GET", "POST"])
+    @octoprint.plugin.BlueprintPlugin.route("/toggleUI",
+                                            methods=["GET", "POST"])
     def toggle_UI(self):
         """
         Turn the Printrhub UI on or off.
@@ -79,6 +80,20 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
         # Fixme: the settings aren't getting written to config.yaml.
         self._settings.set_boolean(["PrintrhubUI"], False)
         return flask.redirect(flask.url_for("index"), code=303)
+
+    @octoprint.plugin.BlueprintPlugin.route("/startPrint",
+                                            methods=["GET", "POST"])
+    def start_Print(self):
+        """
+        Start printing!
+        Only works if a file has already been loaded up.
+        """
+
+        self._printer.start_print()
+        # Send the user back to the render_status page.
+        # Fixme: this fails because of the apikey=? issue. 
+        return flask.redirect(flask.url_for("plugin.Printrhub.render_status"),
+                              code=303)
         
     def on_startup(self, host, port):
         self._PrintrhubUI = self._settings.get(["PrintrhubUI"])

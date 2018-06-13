@@ -11,6 +11,14 @@
   <p> Estimated Print Time: {{printer_data["progress"]["printTime"]}} </p>
   <p> Estimated Time Remaining: {{printer_data["progress"]["printTimeLeft"]}} 
 
-</div>
+{% if printer_data["job"]["file"]["name"] %}
+  <div id="form">
+    <form method="post" action="startPrint?apikey=">
+      <button type="submit">Start Printing</button>
+    </form>
+  </div>  <!-- form -->
+{% endif %} 
+
+</div> <!-- browser column --> 
 
 {% endblock %}
