@@ -83,7 +83,7 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
 
     @octoprint.plugin.BlueprintPlugin.route("/startPrint",
                                             methods=["GET", "POST"])
-    def start_Print(self):
+    def start_print(self):
         """
         Start printing!
         Only works if a file has already been loaded up.
@@ -92,9 +92,36 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
         self._printer.start_print()
         # Send the user back to the render_status page.
         # Fixme: this fails because of the apikey=? issue. 
-        return flask.redirect(flask.url_for("plugin.Printrhub.render_status"),
-                              code=303)
+        #return flask.redirect(flask.url_for("plugin.Printrhub.render_status"),
+        #                      code=303)
+        return flask.redirect(flask.url_for("index"), code=303)
         
+    @octoprint.plugin.BlueprintPlugin.route("/startSlice",
+                                            methods=["GET", "POST"])
+    def start_slice(self):
+        from flask import request
+        file_name = request.args.get("fileName")
+        if file_name:
+            self._logger.info("Maybe start slicing here")
+            self._logger.info(file_name)
+            self._slicing_manager.slice("PBCuraEngine",
+                                        "/home/pi/.octoprint/uploads/3mmBox.stl",
+                                        None,
+                                        "Test_One",
+                                        self.load_file)
+        else:
+            self._logger.info("No valid file to slice")
+            self._logger.info(request)
+
+        # fixme: use render_status   
+        #return flask.redirect(flask.url_for("plugin.Printrhub.render_status"),
+        #                      code=303)
+        return flask.redirect(flask.url_for("index"), code=303)
+
+
+    def load_file(self):
+        self._logger.info("Hey, I just got called")
+    
     def on_startup(self, host, port):
         self._PrintrhubUI = self._settings.get(["PrintrhubUI"])
     

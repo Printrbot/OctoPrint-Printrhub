@@ -37,9 +37,9 @@
           <div class="file-item-bar">
             <span class="file-item-bar-filename">
               <strong>{{file}}</strong>
+              <form method="post" action="/plugin/Printrhub/startSlice?fileName={{file}}&apikey="><button type="submit">Slice-n-Load</button></form>
             </span>
           </div>
-
         </div>
       {% endfor %}
     </div><!-- end of file-container -->
