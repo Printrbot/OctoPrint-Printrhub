@@ -16,13 +16,6 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
                   octoprint.plugin.BlueprintPlugin,
                   octoprint.plugin.EventHandlerPlugin):
 
-#    def __init__(self):
-#        # Fixme: maybe this is unnecessary and gets removed.
-#        # Test what happens when the PrintrhubUI setting is manually
-#        # removed from the config.yaml file. 
-#        #self._PrintrhubUI = True
-#        pass
-        
 #    def get_settings_defaults(self):
 #        """ 
 #        Default settings for the Printrhub UI Plugin.
@@ -36,7 +29,7 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
 #            PrintrhubUI=True
 #        )
     
-    # note: this path /upload is relative to the plugin root,
+    # this path /upload is relative to the plugin root,
     # so it is located at ./plugin/Printrhub/upload
     @octoprint.plugin.BlueprintPlugin.route("/upload", methods=["POST"])
     def upload_file(self):
@@ -53,7 +46,6 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
 
         # grab a file handle from the temp directory where flask places it.
         # then move it over to the proper location.
-
 
         # Fixme: some error checking wouldn't hurt here.
         upload = octoprint.filemanager.util.DiskFileWrapper(upload_name,
@@ -72,6 +64,7 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
         """
         Turn the Printrhub UI on or off.
         """
+        
         if self._PrintrhubUI == True:
             self._PrintrhubUI = False
         else:
@@ -85,11 +78,12 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
                                             methods=["GET", "POST"])
     def start_print(self):
         """
-        Start printing!
+        Start printing.
         Only works if a file has already been loaded up.
         """
 
         self._printer.start_print()
+
         # Send the user back to the render_status page.
         # Fixme: this fails because of the apikey=? issue. 
         #return flask.redirect(flask.url_for("plugin.Printrhub.render_status"),
@@ -101,6 +95,7 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
     def start_slice(self):
         from flask import request
         file_name = request.args.get("fileName")
+
         if file_name:
             self._logger.info("Maybe start slicing here")
             self._logger.info(file_name)
@@ -140,27 +135,11 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
         self._logger.info("load_file should be done")
         
     def on_startup(self, host, port):
+        # set Printrhub UI toggle from the config.yaml settings. 
         self._PrintrhubUI = self._settings.get(["PrintrhubUI"])
     
-
-    # Fixme: These are merges from Kelly's UI work (WIP stuff)
-    # Brian/Kelly to discuss and implement.
-
-#    @octoprint.plugin.BlueprintPlugin.route("/show/<filename>", methods=["GET"])
-#    def get_uploaded_file(filename):
-#        from flask import render_template
-#
-#        filename = '/static/img/' + filename + ".png"
-#        return make_response(render_template('get_uploaded_file.jinja2', filename=filename))
-#
-#    @octoprint.plugin.BlueprintPlugin.errorhandler(404)
-#    def image_not_found(error):
-#        from flask import render_template
-#
-#        self._logger.info("*** 404 image_not_found ***")
-#        return make_response(render_template('noimage_thumb.jinja2'), 404)
-
     def on_after_startup(self):
+        # just a belt-and-suspenders to make sure the plugin loaded.
         self._logger.info("Printrhub UI successfully running.")
 
     def will_handle_ui(self, request):
@@ -183,7 +162,6 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
         # system when a file is uploaded.
         if event == "FileAdded":
             self._logger.info("*** A FILE WAS UPLOADED ***")
-            #self._logger.info(payload)
             stl_path = self._file_manager.path_on_disk(payload["storage"],
                                                        payload["path"])
             self._logger.info(stl_path)
@@ -217,7 +195,7 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
                 self._logger.info(my_result)
             else:
                 # the filename does not end in .stl
-                self._logger.info("skipping filename render, not an .stl")
+                self._logger.info("not rendering preview image, not an .stl")
             
     def get_assets(self):
         # fixme: before making "prod" commit, change config yaml
@@ -247,6 +225,7 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
         printer status, and where you start a print.
         We may eventually want this to be default, at root, though.
         """
+        
         from flask import make_response, render_template
 
         printer_data = self._printer.get_current_data()
@@ -374,7 +353,6 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
         UI views, or handle this as a variable passed into the request.
         """
 
-        #self._logger.info("Calling UI_Render")
         from flask import make_response, render_template
 
         # Generate data for file view.
@@ -405,15 +383,8 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
         because upload_file takes in an STL file that can get big, we need to
         override the default file size of 100k that Octoprint enforces.
         """
-
         # fixme: do the math and pick a reasonable size.
         return [("POST", r"/upload", 20 * 1024 * 1024)]
-
-#    def get_template_configs(self):
-#        return  [
-#            dict(type="materials", custom_bindings=False)
-#                ]
-
 
 __plugin_name__ = "Printrhub"
 
