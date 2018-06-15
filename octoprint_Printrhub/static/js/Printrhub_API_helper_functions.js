@@ -190,5 +190,7 @@ const Printrhub = {
   */
 }
 
+//export default Printrhub;
+
 //document.onload = Printrhub.getGlobalApiKey();
 window.onload = Printrhub.getUserName();
