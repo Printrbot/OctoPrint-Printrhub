@@ -106,11 +106,13 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
             self._logger.info(file_name)
             # fixme: do something better with the path, solve it elsewhere.
             slice_file = "/home/pi/.octoprint/uploads/" + file_name
+            callback_kwargs= {'slice_file': slice_file }
             self._slicing_manager.slice("PBCuraEngine",
                                         slice_file,
                                         None,
                                         "Test_One",
-                                        self.load_file)
+                                        self.load_file,
+                                        callback_kwargs=callback_kwargs)
         else:
             self._logger.info("No valid file to slice")
             self._logger.info(request)
@@ -122,10 +124,20 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
 
 
     def load_file(self, *args, **kwargs):
-        self._logger.info("Hey, I just got called")
-        slice_filed = kwargs.get(sliced, "Sorry, none")
-        self._logger.info(slice_filed)
-        # fixme: load the file to the printer here. 
+
+        import os
+        
+        self._logger.info("load_file called (slicing finished?)")
+        for key, value in kwargs.items():
+            self._logger.info("Key: {} Value: {}".format(key, value))
+        # fixme: load the file to the printer here.
+        slice_file = kwargs.get('slice_file')
+        m_path = os.path.splitext(slice_file)
+        machinecode_path = m_path[0] + ".gcode"
+
+        # fixme: check for file errors
+        self._printer.select_file(machinecode_path, False)
+        self._logger.info("load_file should be done")
         
     def on_startup(self, host, port):
         self._PrintrhubUI = self._settings.get(["PrintrhubUI"])
