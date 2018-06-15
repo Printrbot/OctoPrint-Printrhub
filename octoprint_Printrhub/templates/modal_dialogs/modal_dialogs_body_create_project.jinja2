@@ -2,9 +2,9 @@
 <div class="modal_body_container">
 
   <!-- CHOOSE FILE BUTTON -->
-  <div class="modal_body_control">    
-    <input type="file" id="modal_body_file_choose" name="modal_body_file_choose[]">
-    <label for="modal_body_file_choose">
+  <div class="modal_body_control">
+    <input type="file" id="file" name="file"/>
+    <label for="file">
       <i class="fas fa-cloud-upload-alt"></i>
       <span id="modal_body_file_choose_label">Choose a file...</span>
     </label>
@@ -12,19 +12,19 @@
 
   <div class="modal_body_control">
     <div class="modal_body_label">Project Name</div>
-    <input class="modal_body_textbox" />
+    <!--<input class="modal_body_textbox" />-->
   </div>
 
   <div class="modal_body_control">
     <div class="modal_body_label">Description</div>
-    <textarea class="modal_body_textarea"></textarea>
+    <!--<textarea class="modal_body_textarea"></textarea>-->
   </div>
 
 </div>
 
 <script>
 
-  var chooseFileBtn = document.getElementById('modal_body_file_choose');
+  var chooseFileBtn = document.getElementById('file');
   chooseFileBtn.addEventListener( 'change', function( e )
 	{
     var label = document.getElementById('modal_body_file_choose_label');
@@ -33,7 +33,12 @@
 		if( this.files && this.files.length > 1 )
 			fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
 		else
+    {
 			fileName = e.target.value.split( '\\' ).pop();
+      console.log(e.target.value);
+    }
+
+    console.log(`filename: ${fileName}`);
 
 		if( fileName )
 			label.innerHTML = fileName;

@@ -7,7 +7,7 @@
     <div id="printrbar_dropdown">
 
       <div id="printrbar_caret">
-        <span id="username">USERNAME</span>
+        <span id="username">Please Login</span>
         <i class="fas fa-caret-down"></i>
       </div>
 
@@ -24,7 +24,7 @@
 </div> <!-- printrbar -->
 
 <script>
-  
+
   const renderUserId = async () => {
     var usernameComponent = document.getElementById('username');
     const user = await Printrhub.getUserName();

@@ -57,7 +57,6 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
         # grab a file handle from the temp directory where flask places it.
         # then move it over to the proper location.
 
-
         # Fixme: some error checking wouldn't hurt here.
         upload = octoprint.filemanager.util.DiskFileWrapper(upload_name,
                                                             upload_path)

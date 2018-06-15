@@ -32,7 +32,7 @@
 /* File Choose Control */
 
 /* Hides the original default upload button from input type=file */
-#modal_body_file_choose {
+#file {
 	width: 0.1px;
 	height: 0.1px;
 	opacity: 0;
@@ -41,7 +41,7 @@
 	z-index: -1;
 }
 
-#modal_body_file_choose + label {
+#file + label {
     font-size: 1.25em;
     font-weight: 700;
     color: white; /*#f1e5e6;*/
@@ -54,7 +54,7 @@
     padding-right: 5px;
 }
 
-#modal_body_file_choose:focus + label,
-#modal_body_file_choose + label:hover {
+#file:focus + label,
+#file + label:hover {
     background-color: #ac5b3d;
 }
