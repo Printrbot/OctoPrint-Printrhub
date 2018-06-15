@@ -104,8 +104,10 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
         if file_name:
             self._logger.info("Maybe start slicing here")
             self._logger.info(file_name)
+            # fixme: do something better with the path, solve it elsewhere.
+            slice_file = "/home/pi/.octoprint/uploads/" + file_name
             self._slicing_manager.slice("PBCuraEngine",
-                                        "/home/pi/.octoprint/uploads/3mmBox.stl",
+                                        slice_file,
                                         None,
                                         "Test_One",
                                         self.load_file)
@@ -119,9 +121,12 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
         return flask.redirect(flask.url_for("index"), code=303)
 
 
-    def load_file(self):
+    def load_file(self, *args, **kwargs):
         self._logger.info("Hey, I just got called")
-    
+        slice_filed = kwargs.get(sliced, "Sorry, none")
+        self._logger.info(slice_filed)
+        # fixme: load the file to the printer here. 
+        
     def on_startup(self, host, port):
         self._PrintrhubUI = self._settings.get(["PrintrhubUI"])
     
