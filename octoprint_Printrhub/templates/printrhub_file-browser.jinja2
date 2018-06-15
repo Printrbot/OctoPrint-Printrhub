@@ -22,6 +22,9 @@
 
           {% set dialog_title = 'CREATE PROJECT' %}
           {% set dialog_open_button_text = 'CREATE PROJECT' %}
+          {% set browser_form_action = 'plugin/Printrhub/upload?apikey=' %}
+          {% set browser_form_method = 'post' %}
+          {% set browser_form_enctype = 'multipart/form-data' %}
           {% set modal_dialog_body_file = 'modal_dialogs/modal_dialogs_body_create_project.jinja2' %}
           {% include 'modal_dialogs/modal_dialog_container.jinja2' %}
 
@@ -46,10 +49,5 @@
     </div><!-- end of file-container -->
 
   </div> <!-- content -->
-
-  {% set browser_form_action = 'plugin/Printrhub/upload?apikey=' %}
-  {% set browser_form_method = 'post' %}
-  {% set browser_form_enctype = 'multipart/form-data' %}
-  {% include 'html/browser-form.jinja2' %}
 
 </div> <!-- browser -->

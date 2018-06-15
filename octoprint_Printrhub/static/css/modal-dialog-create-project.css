@@ -21,3 +21,8 @@
   margin: 0;
   border-width: 0.1px;
 }
+
+#modal-dialog-form {
+  margin: 0;
+  padding: 0;
+}

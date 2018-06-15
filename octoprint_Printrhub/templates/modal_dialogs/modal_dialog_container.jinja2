@@ -9,35 +9,45 @@
 </a>
 
 <div id="modal-dialog">
-  <div id="modal-content">
+  <form id="modal-dialog-form" action="{{browser_form_action}}" method="{{browser_form_method}}" enctype="{{browser_form_enctype}}">
 
-    <!-- HEADER -->
-    <div id="modal-header">
-      <h4 id="modal-title">{{dialog_title}}</h4>
+    <div id="modal-content">
+
+      <!-- HEADER -->
+      <div id="modal-header">
+        <h4 id="modal-title">{{dialog_title}}</h4>
+      </div>
+
+      <div id="modal-body">
+        {% include modal_dialog_body_file %}
+
+        <!-- CHOOSE FILE BUTTON -->
+        <div>
+          <label for="file">Choose a file to upload:</label>
+          <input type="file" id="file" name="file"/>
+        </div>
+
+      </div>
+
+      <!-- FOOTER -->
+      <div id="modal-footer">
+        <!-- CANCEL BUTTON -->
+        {% if isCancelBtnExists %}
+        <button type="button" id="cancelBtn" class="modalBtn btn btn-default" >
+          <i class="modalBtnIcon fa fa-times"></i>Cancel
+        </button>
+        {% endif %}
+
+        <!-- OK BUTTON -->
+        {% if isOkBtnExists %}
+        <button type="submit" id="okBtn" class="modalBtn btn btn-primary save">
+          <i class="modalBtnIcon fa fa-check"></i>Save
+        </button>
+        {% endif %}
+      </div>
+
     </div>
-
-    <div id="modal-body">
-      {% include modal_dialog_body_file %}
-    </div>
-
-    <!-- FOOTER -->
-    <div id="modal-footer">
-      <!-- CANCEL BUTTON -->
-      {% if isCancelBtnExists %}
-      <button type="button" id="cancelBtn" class="modalBtn btn btn-default" >
-        <i class="modalBtnIcon fa fa-times"></i>Cancel
-      </button>
-      {% endif %}
-
-      <!-- OK BUTTON -->
-      {% if isOkBtnExists %}
-      <button type="submit" id="okBtn" class="modalBtn btn btn-primary save">
-        <i class="modalBtnIcon fa fa-check"></i>Save
-      </button>
-      {% endif %}
-    </div>
-
-  </div>
+  </form>
 </div>
 
 <script>
