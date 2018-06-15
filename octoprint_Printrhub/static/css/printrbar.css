@@ -31,11 +31,11 @@
 #printrbar_dropdown-menu {
   position: absolute;
   z-index: 1; /* Sit on top */
-  transform: translate(-10px, 30px); /* shift it down and to the left */
+  transform: translate(0px, 30px); /* shift it down and to the left */
   display: none;
   text-align: right;
   flex-direction: column;
-  justify-content: right;
+  justify-content: flex-end;
 
   background-color: #f9f9f9;
   min-width: 160px;

@@ -6,6 +6,9 @@ import flask # maybe clean this up.
 import octoprint.filemanager.util
 import subprocess
 
+import base64
+import rsa
+
 # Plugin identifier is "Printrhub"
 
 class PrintrhubUI(octoprint.plugin.StartupPlugin,
@@ -19,23 +22,23 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
 #    def __init__(self):
 #        # Fixme: maybe this is unnecessary and gets removed.
 #        # Test what happens when the PrintrhubUI setting is manually
-#        # removed from the config.yaml file. 
+#        # removed from the config.yaml file.
 #        #self._PrintrhubUI = True
 #        pass
-        
+
 #    def get_settings_defaults(self):
-#        """ 
+#        """
 #        Default settings for the Printrhub UI Plugin.
 #        These are loaded by default when the plugin is first installed
 #        or when the system is re-initialized.
 #        ""
 #        Note: I removed this because it was obliterating the settings
-#        need to research more. 
-#        
+#        need to research more.
+#
 #        return dict(
 #            PrintrhubUI=True
 #        )
-    
+
     # note: this path /upload is relative to the plugin root,
     # so it is located at ./plugin/Printrhub/upload
     @octoprint.plugin.BlueprintPlugin.route("/upload", methods=["POST"])
@@ -61,8 +64,8 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
 
         self._file_manager.add_file("local", upload_name,
                                     upload, allow_overwrite=True)
-        
-        # return a redirect to the main page, upload received. 
+
+        # return a redirect to the main page, upload received.
         return flask.redirect(flask.url_for("index"), code=303)
 
 
@@ -79,10 +82,10 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
         # Fixme: the settings aren't getting written to config.yaml.
         self._settings.set_boolean(["PrintrhubUI"], False)
         return flask.redirect(flask.url_for("index"), code=303)
-        
+
     def on_startup(self, host, port):
         self._PrintrhubUI = self._settings.get(["PrintrhubUI"])
-    
+
 
     # Fixme: These are merges from Kelly's UI work (WIP stuff)
     # Brian/Kelly to discuss and implement.
@@ -190,11 +193,11 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
 
         Printer state format:
           progress:
-            completion:       
-            filepos:          
-            printTime:        
-            printTimeLeft:    
-            printTimeOrigin:  
+            completion:
+            filepos:
+            printTime:
+            printTimeLeft:
+            printTimeOrigin:
           state:
             text:             // Human readable printer state
             flags:
@@ -207,22 +210,22 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
               error:          // Bool
               ready:          // Bool
               closedOrError:  // Bool
-            currentZ:         
-            job: 
+            currentZ:
+            job:
               estimatedPrintTime:
-              filament: 
-                volume: 
-                length: 
-              file: 
-                date: 
-                origin: 
-                size: 
-                name: 
-                path: 
-              lastPrintTime: 
-              offsets: 
-        """ 
-        
+              filament:
+                volume:
+                length:
+              file:
+                date:
+                origin:
+                size:
+                name:
+                path:
+              lastPrintTime:
+              offsets:
+        """
+
         self._logger.info("Rendering printer status page")
         #self._logger.info(printer_data)
         return make_response(render_template("printrhub_status.jinja2",
