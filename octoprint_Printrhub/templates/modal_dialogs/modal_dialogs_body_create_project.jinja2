@@ -1,6 +1,15 @@
 
 <div class="modal_body_container">
 
+  <!-- CHOOSE FILE BUTTON -->
+  <div class="modal_body_control">    
+    <input type="file" id="modal_body_file_choose" name="modal_body_file_choose[]">
+    <label for="modal_body_file_choose">
+      <i class="fas fa-cloud-upload-alt"></i>
+      <span id="modal_body_file_choose_label">Choose a file...</span>
+    </label>
+  </div>
+
   <div class="modal_body_control">
     <div class="modal_body_label">Project Name</div>
     <input class="modal_body_textbox" />
@@ -12,3 +21,24 @@
   </div>
 
 </div>
+
+<script>
+
+  var chooseFileBtn = document.getElementById('modal_body_file_choose');
+  chooseFileBtn.addEventListener( 'change', function( e )
+	{
+    var label = document.getElementById('modal_body_file_choose_label');
+
+		var fileName = '';
+		if( this.files && this.files.length > 1 )
+			fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
+		else
+			fileName = e.target.value.split( '\\' ).pop();
+
+		if( fileName )
+			label.innerHTML = fileName;
+		else
+			label.innerHTML = 'Choose a file...';
+	});
+
+</script>
