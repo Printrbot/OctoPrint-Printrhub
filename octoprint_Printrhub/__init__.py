@@ -321,8 +321,13 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
         """
         from flask import make_response, render_template
 
+        material_list = self._settings.get(["material_library"])
+        self._logger.info("Materials list:")
+        self._logger.info(material_list)
+                
         self._logger.info("Rendering printer materials page")
-        return make_response(render_template("printrhub_materials.jinja2"))
+        return make_response(render_template("printrhub_materials.jinja2",
+                             materials=material_list))
 
     # note: this path /about is relative to the plugin root,
     # so it is located at ./plugin/Printrhub/about

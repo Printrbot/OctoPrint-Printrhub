@@ -16,16 +16,32 @@
         <tr>
             <th>Name</th>
             <th>Type</th>
-            <th>Brand</th>
+<!--            <th>Brand</th> -->
             <th>Print Temperature</th>
             <th>Speed</th>
             <th>Fan</th>
             <th>Retraction</th>
+            <th>Loaded</th>
             <th></th>
         </tr>
       </thead>
       <tbody>
 
+      {% for material in materials %}
+
+        <tr>
+          <td><b>{{material}}</b></td>
+          <td>{{materials[material]["type"]}}</td>
+          <td>{{materials[material]["temperature"]}}</td>
+          <td>{{materials[material]["speed"]}}%</td>
+          <td>{{materials[material]["fan"]}}</td>
+          <td>{{materials[material]["retraction"]}}</td>
+          <td>False</td>
+        </tr>
+
+      {% endfor %} 
+
+<!--
         <tr>
           <td><b>Printrbot PLA</b></td>
           <td>PLA</td>
@@ -135,7 +151,7 @@
           <td><i class="fa fa-check"></i></td>
           <td style="width:30px"><button class="material btn btn-sm" idx="9"><i class="fa fa-edit"></i></button></td>
         </tr>
-
+--> 
       </tbody>
     </table>
 
