@@ -2,59 +2,63 @@
 {% set isOkBtnExists = true %}
 
 <!-- Launches dialog -->
-<button type="button" id="openBtn" class="btn btn-primary">
-  <i class="fa fa-check"></i>
-  OPEN
-</button>
+<a id="openBtn" class="btn btn-primary fa-3x">
+  <!--<i class="fas fa-plus" data-fa-transform="shrink-5" data-fa-mask="fas fa-circle" ></i>-->
+  <i class="fas fa-plus-circle"></i>
+  <div id="openBtn-text">{{dialog_open_button_text}}</div>
+</a>
 
 <div id="modal-dialog">
-  <div id="modal-content">
+  <form id="modal-content" action="{{browser_form_action}}" method="{{browser_form_method}}" enctype="{{browser_form_enctype}}">
 
-    <!-- HEADER -->
-    <div id="modal-header">
-      <h4 id="modal-title">{{dialog_title}}</h4>
-    </div>
+      <!-- HEADER -->
+      <div id="modal-header">
+        <h4 id="modal-title">{{dialog_title}}</h4>
+      </div>
 
-    <div id="modal-body">
-      {% include modal_dialog_body_file %}
-    </div>
+      <div id="modal-body">
+        {% include modal_dialog_body_file %}
+      </div>
 
-    <!-- FOOTER -->
-    <div id="modal-footer">
-      <!-- CANCEL BUTTON -->
-      {% if isCancelBtnExists %}
-      <button type="button" id="cancelBtn" class="modalBtn btn btn-default" >
-        <i class="modalBtnIcon fa fa-times"></i>Cancel
-      </button>
-      {% endif %}
+      <!-- FOOTER -->
+      <div id="modal-footer">
+        <!-- CANCEL BUTTON -->
+        {% if isCancelBtnExists %}
+        <button type="button" id="cancelBtn" class="modalBtn btn btn-default" >
+          <i class="modalBtnIcon fa fa-times"></i>Cancel
+        </button>
+        {% endif %}
 
-      <!-- OK BUTTON -->
-      {% if isOkBtnExists %}
-      <button type="submit" id="okBtn" class="modalBtn btn btn-primary save">
-        <i class="modalBtnIcon fa fa-check"></i>Save
-      </button>
-      {% endif %}
-    </div>
+        <!-- OK BUTTON -->
+        {% if isOkBtnExists %}
+        <button type="submit" id="okBtn" class="modalBtn btn btn-primary save">
+          <i class="modalBtnIcon fa fa-check"></i>Save
+        </button>
+        {% endif %}
+      </div>
 
-  </div>
+  </form>
 </div>
 
 <script>
+
+
+
   var modalDialog = document.getElementById('modal-dialog');
   var openBtn = document.getElementById("openBtn");
   var cancelBtn = document.getElementById("cancelBtn");
 
   openBtn.onclick = function() {
-      modalDialog.style.display = "flex";
+    modalDialog.style.display = "flex";
   }
 
   cancelBtn.onclick = function() {
-      modalDialog.style.display = "none";
+    modalDialog.style.display = "none";
   }
 
   window.onclick = function(event) {
-      if (event.target == modalDialog) {
-          modalDialog.style.display = "none";
-      }
+    if (event.target == modalDialog) {
+        modalDialog.style.display = "none";
+    }
   }
 </script>

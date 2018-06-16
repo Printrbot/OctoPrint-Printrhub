@@ -6,6 +6,9 @@ import flask # maybe clean this up.
 import octoprint.filemanager.util
 import subprocess
 
+import base64
+import rsa
+
 # Plugin identifier is "Printrhub"
 
 class PrintrhubUI(octoprint.plugin.StartupPlugin,
@@ -17,14 +20,14 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
                   octoprint.plugin.EventHandlerPlugin):
 
 #    def get_settings_defaults(self):
-#        """ 
+#        """
 #        Default settings for the Printrhub UI Plugin.
 #        These are loaded by default when the plugin is first installed
 #        or when the system is re-initialized.
 #        ""
 #        Note: I removed this because it was obliterating the settings
-#        need to research more. 
-#        
+#        need to research more.
+#
 #        return dict(
 #            PrintrhubUI=True
 #        )
@@ -53,8 +56,8 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
 
         self._file_manager.add_file("local", upload_name,
                                     upload, allow_overwrite=True)
-        
-        # return a redirect to the main page, upload received. 
+
+        # return a redirect to the main page, upload received.
         return flask.redirect(flask.url_for("index"), code=303)
 
 
@@ -73,6 +76,7 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
         # Fixme: the settings aren't getting written to config.yaml.
         self._settings.set_boolean(["PrintrhubUI"], False)
         return flask.redirect(flask.url_for("index"), code=303)
+
 
     @octoprint.plugin.BlueprintPlugin.route("/startPrint",
                                             methods=["GET", "POST"])
@@ -134,10 +138,28 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
         self._printer.select_file(machinecode_path, False)
         self._logger.info("load_file should be done")
         
+
     def on_startup(self, host, port):
         # set Printrhub UI toggle from the config.yaml settings. 
         self._PrintrhubUI = self._settings.get(["PrintrhubUI"])
-    
+
+    # Fixme: These are merges from Kelly's UI work (WIP stuff)
+    # Brian/Kelly to discuss and implement.
+
+#    @octoprint.plugin.BlueprintPlugin.route("/show/<filename>", methods=["GET"])
+#    def get_uploaded_file(filename):
+#        from flask import render_template
+#
+#        filename = '/static/img/' + filename + ".png"
+#        return make_response(render_template('get_uploaded_file.jinja2', filename=filename))
+#
+#    @octoprint.plugin.BlueprintPlugin.errorhandler(404)
+#    def image_not_found(error):
+#        from flask import render_template
+#
+#        self._logger.info("*** 404 image_not_found ***")
+#        return make_response(render_template('noimage_thumb.jinja2'), 404)
+
     def on_after_startup(self):
         # just a belt-and-suspenders to make sure the plugin loaded.
         self._logger.info("Printrhub UI successfully running.")
@@ -235,11 +257,11 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
 
         Printer state format:
           progress:
-            completion:       
-            filepos:          
-            printTime:        
-            printTimeLeft:    
-            printTimeOrigin:  
+            completion:
+            filepos:
+            printTime:
+            printTimeLeft:
+            printTimeOrigin:
           state:
             text:             // Human readable printer state
             flags:
@@ -252,22 +274,22 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
               error:          // Bool
               ready:          // Bool
               closedOrError:  // Bool
-            currentZ:         
-            job: 
+            currentZ:
+            job:
               estimatedPrintTime:
-              filament: 
-                volume: 
-                length: 
-              file: 
-                date: 
-                origin: 
-                size: 
-                name: 
-                path: 
-              lastPrintTime: 
-              offsets: 
-        """ 
-        
+              filament:
+                volume:
+                length:
+              file:
+                date:
+                origin:
+                size:
+                name:
+                path:
+              lastPrintTime:
+              offsets:
+        """
+
         self._logger.info("Rendering printer status page")
         #self._logger.info(printer_data)
         return make_response(render_template("printrhub_status.jinja2",

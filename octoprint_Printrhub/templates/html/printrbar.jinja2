@@ -1,3 +1,57 @@
 <div class="printrbar">
-  <h1> {{printrbar_title}} </h1>
+
+  <h1 class="printrbar_item printrbar_left"> {{printrbar_title}} </h1>
+
+  <!-- DROP DOWN MENU -->
+  <div class="printrbar_item printrbar_right">
+    <div id="printrbar_dropdown">
+
+      <div id="printrbar_caret">
+        <span id="username">Please Login</span>
+        <i class="fas fa-caret-down"></i>
+      </div>
+
+      <div id="printrbar_dropdown-menu">
+        <ul>
+          <li class="printrbar_menu_item"><a href="/plugin/Printrhub/settings?apikey=">Settings</a></li>
+          <li class="printrbar_menu_item">ip address here</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
 </div> <!-- printrbar -->
+
+<script>
+
+  const renderUserId = async () => {
+    var usernameComponent = document.getElementById('username');
+    const user = await Printrhub.getUserName();
+    if (user !== DEFAULT_RETURN_VALUE) {
+      usernameComponent.innerHTML = user;
+    }
+  };
+
+  document.onload = renderUserId();
+
+  /* ********************************************************** Drop down menu */
+  var dropdownmenu = document.getElementById('printrbar_dropdown-menu');
+  var caret = document.getElementById("printrbar_caret");
+
+  caret.onclick = function() {
+    if (dropdownmenu.style.display === "flex") {
+      dropdownmenu.style.display = "none";
+    } else {
+      dropdownmenu.style.display = "flex";
+    }
+  }
+
+  window.onclick = function(event) {
+    //alert(event.target);
+    if (event.target == dropdownmenu) {
+        dropdownmenu.style.display = "none";
+    }
+  }
+
+</script>

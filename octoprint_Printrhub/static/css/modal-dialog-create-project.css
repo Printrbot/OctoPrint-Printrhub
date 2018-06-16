@@ -1,0 +1,60 @@
+.modal_body_container {
+  margin: 0;
+
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.modal_body_control {
+  margin: 5px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.modal_body_textarea {
+  padding: 0;
+  margin: 0;
+  border-width: 0.1px;
+}
+
+/*
+#modal-dialog-form {
+  margin: 0;
+  padding: 0;
+}
+*/
+
+/* File Choose Control */
+
+/* Hides the original default upload button from input type=file */
+#file {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+#file + label {
+    font-size: 1.25em;
+    font-weight: 700;
+    color: white; /*#f1e5e6;*/
+    background-color: #F09500;
+    display: inline-block;
+    min-width: 130px;;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 5px;
+}
+
+#file:focus + label,
+#file + label:hover {
+    background-color: #ac5b3d;
+}

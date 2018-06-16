@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="46.801" height="46.801" viewBox="0, 0, 46.801, 46.801">
+  <g id="ui_test_Copy">
+    <g>
+      <g>
+        <path d="M23.9,46.301 C11.529,46.301 1.5,36.272 1.5,23.9 C1.5,11.529 11.529,1.5 23.9,1.5 C36.271,1.5 46.3,11.529 46.3,23.9 C46.3,36.272 36.271,46.301 23.9,46.301 z" fill="#FFFFFF"/>
+        <path d="M23.9,46.301 C11.529,46.301 1.5,36.272 1.5,23.9 C1.5,11.529 11.529,1.5 23.9,1.5 C36.271,1.5 46.3,11.529 46.3,23.9 C46.3,36.272 36.271,46.301 23.9,46.301 z" fill-opacity="0" stroke="#C8C8C8" stroke-width="0.25"/>
+      </g>
+      <path d="M23.9,46.301 C11.529,46.301 1.5,36.272 1.5,23.9 C1.5,11.529 11.529,1.5 23.9,1.5 C36.271,1.5 46.3,11.529 46.3,23.9 C46.3,36.272 36.271,46.301 23.9,46.301 z" fill-opacity="0" stroke="#C8C8C8" stroke-width="0.25"/>
+    </g>
+    <path d="M23.9,15.706 L23.9,6.003" fill-opacity="0" stroke="#C8C8C8" stroke-width="4" stroke-linecap="round" stroke-linejoin="bevel"/>
+    <path d="M23.9,41.797 L23.9,32.094" fill-opacity="0" stroke="#C8C8C8" stroke-width="4" stroke-linecap="round" stroke-linejoin="bevel"/>
+    <path d="M32.094,23.985 L41.797,23.985" fill-opacity="0" stroke="#C8C8C8" stroke-width="4" stroke-linecap="round" stroke-linejoin="bevel"/>
+    <path d="M6.003,23.985 L15.706,23.985" fill-opacity="0" stroke="#C8C8C8" stroke-width="4" stroke-linecap="round" stroke-linejoin="bevel"/>
+    <path d="M29.694,18.106 L36.555,11.245" fill-opacity="0" stroke="#C8C8C8" stroke-width="4" stroke-linecap="round" stroke-linejoin="bevel"/>
+    <path d="M11.245,36.555 L18.106,29.694" fill-opacity="0" stroke="#C8C8C8" stroke-width="4" stroke-linecap="round" stroke-linejoin="bevel"/>
+    <path d="M29.634,29.754 L36.495,36.615" fill-opacity="0" stroke="#C8C8C8" stroke-width="4" stroke-linecap="round" stroke-linejoin="bevel"/>
+    <path d="M11.185,11.305 L18.046,18.166" fill-opacity="0" stroke="#C8C8C8" stroke-width="4" stroke-linecap="round" stroke-linejoin="bevel"/>
+    <path d="M23.9,28.264 C21.491,28.264 19.537,26.311 19.537,23.901 C19.537,21.492 21.491,19.538 23.9,19.538 C26.31,19.538 28.263,21.492 28.263,23.901 C28.263,26.311 26.31,28.264 23.9,28.264 z" fill="#C8C8C8"/>
+  </g>
+</svg>

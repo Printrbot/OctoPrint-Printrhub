@@ -3,8 +3,10 @@
 {% block browser_container %}
 
 <div class="browser column">
-  {% set printrbar_title = 'SETTINGS PRINTRHUB' %}
+
+  {% set printrbar_title = 'PRINTER SETTINGS' %}
   {% include 'html/printrbar.jinja2' %}
+
   <p> This page is for settings and system configuration. </p>
   <p> Right now, you can use this button to revert to the vanilla
   OctoPrint UI: </p>
@@ -13,7 +15,7 @@
       <button type="submit">Disable Printrhub UI</button>
     </form>
   </div> <!-- form -->
+
 </div>
 
 {% endblock %}
-
