@@ -1,13 +1,15 @@
 
 /* ********************************************************** Query Request */
-const TESTING = false;
+const TESTING = true;
 
 const DEFAULT_RETURN_VALUE = '';
 const DEFAULT_LOCATION_STL_PREVIEW_IMG = '/plugin/Printrhub/static/img/';
 
-let __global_api__ = '';
-let __username__ = '';
-let __userApiKey__ = '';
+let __global_api__ = DEFAULT_RETURN_VALUE;
+let __username__ = DEFAULT_RETURN_VALUE;
+let __userApiKey__ = DEFAULT_RETURN_VALUE;
+let __apiVer__ = DEFAULT_RETURN_VALUE;
+let __serverIp__ = DEFAULT_RETURN_VALUE;
 
 const Printrhub = {
   /*
@@ -87,7 +89,7 @@ const Printrhub = {
 
   async getGlobalApiKey() {
     //if global api is already discovered
-    if (__global_api__ !== '') {
+    if (__global_api__ !== DEFAULT_RETURN_VALUE) {
       return __global_api__;
     }
 
@@ -123,7 +125,7 @@ const Printrhub = {
     //var usernameComponent = document.getElementById('username');
 
     // if username is already discovered
-    if (__username__ !== '') {
+    if (__username__ !== DEFAULT_RETURN_VALUE) {
       //usernameComponent.innerHTML = __username__;
       return __username__;
     }
@@ -164,6 +166,55 @@ const Printrhub = {
       console.log('Something terrible has gone wrong!');
     }
     return DEFAULT_RETURN_VALUE;
+  },
+
+  async getVersion() {
+    if (__global_api__ === DEFAULT_RETURN_VALUE) {
+      __global_api__ = await Printrhub.getGlobalApiKey();
+    }
+
+    const query = `/api/version?apikey=${__global_api__}`;
+    const response = await fetch (query, {
+                                            method: 'GET'
+                                          });
+    if (response.ok) {
+      const jsonResponse = await response.json();
+      if (TESTING) {
+        console.log("Version:");
+        console.log(jsonResponse);
+      }
+
+      const apiVer = jsonResponse.api;
+      const serverIp = jsonResponse.server;
+      if (apiVer) {
+        __apiVer__ = apiVer;
+      }
+      if (serverIp) {
+        __serverIp__ = serverIp;
+      }
+
+    } else {
+      console.log('Something went terribly wrong');
+    }
+
+  },
+
+  async getApiVersion() {
+    if (__apiVer__ !== DEFAULT_RETURN_VALUE) {
+      return __apiVer__;
+    }
+
+    await Printrhub.getVersion();
+    return __apiVer__;
+  },
+
+  async getServerVersion() {
+    if (__serverIp__ !== DEFAULT_RETURN_VALUE) {
+      return __serverIp__;
+    }
+
+    await Printrhub.getVersion();
+    return __serverIp__;
   },
 
   /*

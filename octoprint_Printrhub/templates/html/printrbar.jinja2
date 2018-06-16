@@ -14,7 +14,8 @@
       <div id="printrbar_dropdown-menu">
         <ul>
           <li class="printrbar_menu_item"><a class="printrbar_menu_item_link" href="/plugin/Printrhub/settings?apikey=">Settings</a></li>
-          <li class="printrbar_menu_item">ip address here</li>
+          <li class="printrbar_menu_item" id="printrbar_menu_item_serverVer">ip address</li>
+          <li class="printrbar_menu_item" id="printrbar_menu_item_apiVer">API Version</li>
         </ul>
       </div>
 
@@ -25,15 +26,28 @@
 
 <script>
 
-  const renderUserId = async () => {
+  const renderDataInMenuDropdown = async () => {
     var usernameComponent = document.getElementById('username');
     const user = await Printrhub.getUserName();
     if (user !== DEFAULT_RETURN_VALUE) {
       usernameComponent.innerHTML = user;
     }
+
+    var serverVerComponent = document.getElementById('printrbar_menu_item_serverVer');
+    const serverVer = await Printrhub.getServerVersion();
+    if (serverVer !== DEFAULT_RETURN_VALUE) {
+      serverVerComponent.innerHTML = `Server Ver: ${serverVer}`;
+    }
+
+    var apiVerComponent = document.getElementById('printrbar_menu_item_apiVer');
+    const apiVer = await Printrhub.getApiVersion();
+    if (apiVer !== DEFAULT_RETURN_VALUE) {
+      apiVerComponent.innerHTML = `API Ver: ${apiVer}`;
+    }
+
   };
 
-  document.onload = renderUserId();
+  document.onload = renderDataInMenuDropdown();
 
   /* ********************************************************** Drop down menu */
   var dropdownmenu = document.getElementById('printrbar_dropdown-menu');
