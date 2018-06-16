@@ -1,6 +1,6 @@
 <div class="browser column">
 
-  {% set printrbar_title = 'PROJECTS LIBRARY' %}
+  {% set printrbar_title = 'Projects Library' %}
   {% include 'html/printrbar.jinja2' %}
 
   <div class="searchbar">
@@ -14,7 +14,7 @@
 
   <div id="content">
 
-    <h1>Number of files: {{files['local']|length}}</h1>
+    <h1 class="file_title">Number of files: {{files['local']|length}}</h1>
 
     <div class="file-container" >
       <div class="file-item create-project-file-item">
@@ -51,3 +51,8 @@
   </div> <!-- content -->
 
 </div> <!-- browser -->
+
+<script>
+
+
+</script>

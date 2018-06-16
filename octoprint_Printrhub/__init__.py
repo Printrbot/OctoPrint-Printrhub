@@ -195,7 +195,7 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
             script_path = self._basefolder + "/stl_preview.go"
             self._logger.info(script_path)
             my_result = ""
-            
+
             # don't try to render anything but an .stl file.
             if stl_path[-4:] == '.stl': 
                 try:
@@ -218,7 +218,7 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
             else:
                 # the filename does not end in .stl
                 self._logger.info("not rendering preview image, not an .stl")
-            
+
     def get_assets(self):
         # fixme: before making "prod" commit, change config yaml
         # to bundle, and check in CSS files.
