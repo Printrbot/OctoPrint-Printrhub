@@ -43,3 +43,16 @@ body {
   height: 100%;
   width: 100%;
 }
+
+.titles {
+  font-family: 'BebasNeueRegular', sans-serif;
+  color: #555;
+  font-size: 36px;
+}
+
+.menus {
+  font-family: 'BebasNeueRegular', sans-serif;
+  color: #555;
+  font-size: 16px;
+  font-weight: normal;
+}

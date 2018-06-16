@@ -66,3 +66,8 @@
 .printrbar_menu_item:hover {
   background-color: #f3f4df;
 }
+
+.printrbar_menu_item_link {
+  color: #555;
+  text-decoration: none;   /* remove underline */
+}
