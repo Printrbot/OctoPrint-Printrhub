@@ -14,14 +14,14 @@
 
   <div id="content">
 
-    <h1 class="file_title">Number of files: {{files['local']|length}}</h1>
+    <h1 class="titles">Number of files: {{files['local']|length}}</h1>
 
     <div class="file-container" >
       <div class="file-item create-project-file-item">
         <div class="create-project-file">
 
-          {% set dialog_title = 'CREATE PROJECT' %}
-          {% set dialog_open_button_text = 'CREATE PROJECT' %}
+          {% set dialog_title = 'Create Project' %}
+          {% set dialog_open_button_text = 'Create Project' %}
           {% set browser_form_action = 'plugin/Printrhub/upload?apikey=' %}
           {% set browser_form_method = 'post' %}
           {% set browser_form_enctype = 'multipart/form-data' %}
@@ -39,9 +39,7 @@
             <img class="file-image" src="/plugin/Printrhub/static/img/{{file}}.png" />
           </div>
           <div class="file-item-bar">
-            <span class="file-item-bar-filename">
-              <strong>{{file}}</strong>
-            </span>
+            <span class="file-item-bar-filename menus">{{file}}</span>
           </div>
 
         </div>

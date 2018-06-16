@@ -48,6 +48,10 @@
 
 #modal-title {
   margin-left: 15px;
+  margin-top: 14px;
+  font-size: 22px;
+  color: #ebebeb;
+  font-weight: lighter;
 }
 
 #modal-body {
