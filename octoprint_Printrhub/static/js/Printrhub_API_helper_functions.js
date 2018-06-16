@@ -3,6 +3,8 @@
 const TESTING = false;
 
 const DEFAULT_RETURN_VALUE = '';
+const DEFAULT_LOCATION_STL_PREVIEW_IMG = '/plugin/Printrhub/static/img/';
+
 let __global_api__ = '';
 let __username__ = '';
 let __userApiKey__ = '';
@@ -188,6 +190,25 @@ const Printrhub = {
     }
   },
   */
+
+  async isPreviewImgExists(filename) {
+    const query = `${DEFAULT_LOCATION_STL_PREVIEW_IMG}${filename}`;
+    const response = await fetch(query, {
+                                          method: 'GET'
+                                        });
+    if (response.ok) {
+      const jsonResponse = await response.json();
+      if (TESTING) {
+        console.log("Preview STL:");
+        console.log(jsonResponse);
+      }
+      return query;
+
+    } else {
+      console.log("Something went terribly wrong");
+    }
+
+  },
 }
 
 //export default Printrhub;

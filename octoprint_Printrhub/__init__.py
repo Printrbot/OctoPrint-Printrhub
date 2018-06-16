@@ -142,7 +142,7 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
                 # dangerous: running as shell.
                 # Fixme: gopath should be a config setting.
 
-                ''' Kelly's Path
+                ''' Kelly's Path'''
                 env = {'GOPATH': r'/home/pi/go'}
                 my_result = subprocess.check_output("/usr/local/go/bin/go run " + script_path + " --input " + stl_path + " --output " + out_path,
                                                     shell=True,
@@ -155,7 +155,7 @@ class PrintrhubUI(octoprint.plugin.StartupPlugin,
                                                     shell=True,
                                                     stderr=subprocess.STDOUT,
                                                     env=env)
-
+'''
             except subprocess.CalledProcessError as e:
                 self._logger.info ("something went wrong")
                 my_result = e.output
