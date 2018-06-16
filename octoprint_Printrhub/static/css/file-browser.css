@@ -38,8 +38,6 @@
 }
 
 /* ********************* */
-
-
 .file-item-preview {
   margin: 0;
   height: 200px;
@@ -55,11 +53,13 @@
 }
 
 .file-item-bar-filename {
-  display: inline-block;
+  display: block;
   margin-top: 10px;
   margin-bottom: 10px;
   margin-left: 10px;
   text-align: left;
+
+  word-wrap: break-word;
 }
 
 .file-image {
