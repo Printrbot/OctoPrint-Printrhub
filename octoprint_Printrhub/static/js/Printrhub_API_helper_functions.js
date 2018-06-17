@@ -173,9 +173,10 @@ const Printrhub = {
       __global_api__ = await Printrhub.getGlobalApiKey();
     }
 
-    const query = `/api/version?apikey=${__global_api__}`;
+    const query = `/api/version?apikey=`;
     const response = await fetch (query, {
-                                            method: 'GET'
+                                            method: 'GET',
+                                            credentials: "same-origin"
                                           });
     if (response.ok) {
       const jsonResponse = await response.json();
