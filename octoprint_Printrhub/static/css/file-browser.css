@@ -59,7 +59,9 @@
   margin-left: 10px;
   text-align: left;
 
-  word-wrap: break-word;
+  /* word-wrap: break-word; */
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .file-image {
