@@ -6,24 +6,25 @@
 
   {% set printrbar_title = 'PRINTER STATUS' %}
   {% include 'html/printrbar.jinja2' %}
-
   
   <div class="status_info">
-    <p> Printer status: {{printer_data["state"]["text"]}} </p>
-    <p> Current file: {{printer_data["job"]["file"]["name"]}} </p>
-    <p> Estimated Print Time: {{printer_data["progress"]["printTime"]}} </p>
-    <p> Estimated Time Remaining: {{printer_data["progress"]["printTimeLeft"]}}</p>
+    <div class="printrhub_text"> 
+      <p> Printer status: {{printer_data["state"]["text"]}} </p>
+      <p> Current file: {{printer_data["job"]["file"]["name"]}} </p>
+      <p> Estimated Print Time: {{printer_data["progress"]["printTime"]}} </p>
+      <p> Estimated Time Remaining:
+    {{printer_data["progress"]["printTimeLeft"]}}</p>
+
+      {% if printer_data["job"]["file"]["name"] %}
+      <div id="form">
+        <form method="post" action="startPrint?apikey=">
+          <button type="submit" class="printrhub_btns">Start Printing</button>
+        </form>
+      </div>  <!-- form -->
+      {% endif %} 
+
+    </div> <!-- printrhub_text -->
   </div> <!-- status_info --> 
-
-
-  {% if printer_data["job"]["file"]["name"] %}
-  <div id="form">
-    <form method="post" action="startPrint?apikey=">
-      <button type="submit">Start Printing</button>
-    </form>
-  </div>  <!-- form -->
-  {% endif %} 
-
 </div> <!-- browser_column --> 
 
 {% endblock %}
