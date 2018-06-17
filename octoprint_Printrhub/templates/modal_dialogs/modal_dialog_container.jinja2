@@ -24,14 +24,14 @@
       <div id="modal-footer">
         <!-- CANCEL BUTTON -->
         {% if isCancelBtnExists %}
-        <button type="button" id="cancelBtn" class="modalBtn btn btn-default" >
+        <button type="button" id="cancelBtn" class="printrhub_btns btn btn-default" >
           <i class="modalBtnIcon fa fa-times"></i>Cancel
         </button>
         {% endif %}
 
         <!-- OK BUTTON -->
         {% if isOkBtnExists %}
-        <button type="submit" id="okBtn" class="modalBtn btn btn-primary save">
+        <button type="submit" id="okBtn" class="printrhub_btns btn btn-primary save">
           <i class="modalBtnIcon fa fa-check"></i>Save
         </button>
         {% endif %}
@@ -41,9 +41,6 @@
 </div>
 
 <script>
-
-
-
   var modalDialog = document.getElementById('modal-dialog');
   var openBtn = document.getElementById("openBtn");
   var cancelBtn = document.getElementById("cancelBtn");

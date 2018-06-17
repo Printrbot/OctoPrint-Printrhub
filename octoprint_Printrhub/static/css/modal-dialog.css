@@ -16,6 +16,8 @@
   justify-content: center;
   align-content: center;
   align-items: center;
+
+  cursor: default;
 }
 
 /* Actual modal pop-up dialog */
@@ -95,6 +97,7 @@
 }
 
 /* Cancel, save buttons, delete */
+/*   .modalBtn is moved to Printrhub.css to make all buttons consistent
 .modalBtn {
   padding-top: 5px;
   padding-bottom: 5px;
@@ -111,6 +114,7 @@
   letter-spacing: normal;
   word-spacing: normal;
 }
+*/
 
 .modalBtnIcon {
   margin-right: 5px;

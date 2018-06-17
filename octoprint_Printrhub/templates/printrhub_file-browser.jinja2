@@ -38,12 +38,18 @@
             <!-- Fixme: need to check for broken image links here -->
             <img class="file-image" src="/plugin/Printrhub/static/img/{{file}}.png" />
           </div>
+
           <div class="file-item-bar">
             <span class="file-item-bar-filename menus">
               <strong>{{file}}</strong>
-              <form method="post" action="/plugin/Printrhub/startSlice?fileName={{file}}&apikey="><button type="submit">Slice-n-Load</button></form>
+              <form method="post" action="/plugin/Printrhub/startSlice?fileName={{file}}&apikey=">
+                <button type="submit" class="printrhub_btns" >
+                  <i class="fas fa-cut printrhub_btn_icons"></i>Slice-n-Load
+                </button>
+              </form>
             </span>
           </div>
+
         </div>
       {% endfor %}
     </div><!-- end of file-container -->
