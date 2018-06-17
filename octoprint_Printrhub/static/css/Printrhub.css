@@ -56,6 +56,12 @@ body {
   font-size: 24px;
 }
 
+.printrhub_text {
+  font-family: 'SaralaRegular', sans-serif;
+  color: black;
+  font-size: 14px;
+}
+
 .menus {
   font-family: 'BebasNeueRegular', sans-serif;
   color: #555;

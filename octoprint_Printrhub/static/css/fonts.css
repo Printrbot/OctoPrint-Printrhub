@@ -12,3 +12,8 @@
 font-family: fontawesome;
 src: url(/plugin/Printrhub/static/fonts/fontawesome-webfont.woff2);
 }
+
+@font-face {
+font-family: SaralaRegular;
+src: url(/plugin/Printrhub/static/fonts/Sarala-Regular.ttf);
+}
