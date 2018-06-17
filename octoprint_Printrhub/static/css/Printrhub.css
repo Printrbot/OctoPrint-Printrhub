@@ -50,6 +50,12 @@ body {
   font-size: 36px;
 }
 
+.subtitles {
+  font-family: 'BebasNeueRegular', sans-serif;
+  color: #555;
+  font-size: 24px;
+}
+
 .menus {
   font-family: 'BebasNeueRegular', sans-serif;
   color: #555;
