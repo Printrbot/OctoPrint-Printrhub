@@ -1,3 +1,17 @@
 .about_info {
   margin-left: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+
+#about_project {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+#about_project_description {
+  width: 60%;
 }

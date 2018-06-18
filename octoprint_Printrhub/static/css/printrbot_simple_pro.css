@@ -1,0 +1,47 @@
+
+.printrbot_simple_pro {
+  /*background-color: green; */
+}
+
+/*  centering
+svg {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+*/
+
+
+svg {
+  width: 394px;
+  height: 280px;
+}
+
+
+svg path {
+  /* fill: none; /* start off hidden */
+  stroke-width: 1px;
+  stroke: black;
+  stroke-dasharray: 370;
+  stroke-dashoffset: 370;
+  animation: 8s text-outline forwards;
+}
+
+@keyframes text-outline {
+  from {
+    stroke-dashoffset: 370;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* hover over logo to change svg_circle */
+/*
+.logo:hover .svg_path {
+  animation: 4s text-outline forwards;
+}
+*/
