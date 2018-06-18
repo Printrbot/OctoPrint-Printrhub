@@ -1,0 +1,33 @@
+{% extends 'printrhub_files.jinja2' %}
+
+{% block browser_container %}
+
+<div class="browser column">
+
+  {% set printrbar_title = 'ABOUT PRINTRHUB' %}
+  {% include 'html/printrbar.jinja2' %}
+
+  <div class="about_info">
+    <h2 class="subtitles"> About this Project </h2>
+
+    <div class="printrhub_text">
+      <p> <a href="https://github.com/BDFife">BDFife</a> and <a href="https://github.com/bluefiresound">bluefiresound</a> are contributors to this project.</p>
+      <p>
+
+      </p>
+      <p> <a href="https://github.com/oddirmeyer">oddirmeyer</a> and <a href="https://github.com/mickbalaban">mickbalaban</a> developed the <a href="Printrbot.cloud">Printrbot cloud</a> code that has been the blueprint for this project.</p>
+      <p> Questions about this project? Reach out to <a href="https://twitter.com/printrbot">Brook</a> or <a href="https://twitter.com/bdfife">Brian</a></p>
+      <h2 class="subtitles"> Key Components </h2>
+      <p> This project is a plugin for <a href="https://octoprint.org">OctoPrint</a> and is only possible because of the great work that Gina and team have done to build the OctoPrint platform. Guy Sheffer's <a href="https://octopi.octoprint.org">OctoPi</a> and Paul de Vries' <a href="https://plugins.octoprint.org/plugins/touchui/">TouchUI</a> have also been essential reference works/inspiration.
+      </p>
+      <p> This plugin also uses <a href="https://github.com/Ultimaker/CuraEngine">CuraEngine</a> for slicing and <a href="https://github.com/fogleman/fauxgl">FauxGL</a> for preview rendering.
+      </p>
+      <p> This project is initially being developed for <a href="https://printrbot.com">Printrbot</a> devices. That may change once we get things running smoothly. The code is open source and available <a href="https://github.com/Printrbot/OctoPrint-Printrhub">here.</a>
+      </p>
+    </div>
+
+  </div>
+
+</div>
+
+{% endblock %}
