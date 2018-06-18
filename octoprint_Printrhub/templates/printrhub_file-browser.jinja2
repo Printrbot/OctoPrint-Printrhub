@@ -58,7 +58,21 @@
 
 </div> <!-- browser -->
 
+<meta id="my-data" content="{{files['local']|length}}" >
+
 <script>
+  var meta = document.getElementById("my-data");
+  var numFilesMeta = parseInt(meta.content);
 
+  async function pollNumFiles() {
+    const numFiles = await Printrhub.getNumberOfFiles();
 
+    if (numFiles !== numFilesMeta ) {
+      alert(`${meta.content} ${numFiles}`);
+      location.reload(true);
+    }
+
+  }
+
+  document.onload = pollNumFiles();
 </script>

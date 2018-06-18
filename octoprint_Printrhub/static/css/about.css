@@ -13,5 +13,11 @@
 }
 
 #about_project_description {
-  width: 60%;
+  
+}
+
+#printrbot_simple_pro {
+  -ms-transform: translate(25px, 0px); /* IE 9 */
+  -webkit-transform: translate(25px, 0px); /* Safari */
+  transform: translate(25px, 0px);
 }

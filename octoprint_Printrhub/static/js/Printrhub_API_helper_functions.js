@@ -5,6 +5,8 @@ const TESTING = true;
 const DEFAULT_RETURN_VALUE = '';
 const DEFAULT_LOCATION_STL_PREVIEW_IMG = '/plugin/Printrhub/static/img/';
 
+let __number_of_files__ = 0;
+
 let __global_api__ = DEFAULT_RETURN_VALUE;
 let __username__ = DEFAULT_RETURN_VALUE;
 let __userApiKey__ = DEFAULT_RETURN_VALUE;
@@ -216,6 +218,27 @@ const Printrhub = {
 
     await Printrhub.getVersion();
     return __serverIp__;
+  },
+
+  async getNumberOfFiles() {
+    if (__global_api__ === DEFAULT_RETURN_VALUE) {
+      await Printrhub.getGlobalApiKey();
+    }
+
+    const query = `/api/files?apikey=${__global_api__}`;
+    const response = await fetch(query, {
+                                          method: 'GET'
+                                        });
+    if (response.ok) {
+      const jsonResponse = await response.json();
+      if (TESTING) {
+        console.log("Number of Files:");
+        console.log(jsonResponse);
+      }
+
+      __number_of_files__ = jsonResponse.files.length;
+      return jsonResponse.files.length;
+    }
   },
 
   /*

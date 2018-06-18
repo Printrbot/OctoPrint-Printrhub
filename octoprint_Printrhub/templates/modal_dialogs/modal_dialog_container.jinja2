@@ -44,18 +44,44 @@
   var modalDialog = document.getElementById('modal-dialog');
   var openBtn = document.getElementById("openBtn");
   var cancelBtn = document.getElementById("cancelBtn");
+  //var saveBtn = document.getElementById('okBtn');
+  //var formComp = document.getElementById('modal-content');
 
+  /* Launch Modal Dialog click */
   openBtn.onclick = function() {
     modalDialog.style.display = "flex";
   }
 
+  /* Cancel click */
   cancelBtn.onclick = function() {
     modalDialog.style.display = "none";
   }
 
+  /* Save click */
   window.onclick = function(event) {
-    if (event.target == modalDialog) {
-        modalDialog.style.display = "none";
+    if (event.target === modalDialog) {
+      modalDialog.style.display = "none";
     }
   }
+
+
+  /*
+  formComp.onsubmit = function() {
+    alert("hello");
+    window.location.reload(true);
+  }
+
+
+  async function pollFiles() {
+    if (__number_of_files__ !== {{files['local']|length}} ) {
+      __number_of_files__ = await Printrhub.getNumberOfFiles();
+    }
+    alert(`poll: ${__number_of_files__}`);
+
+    //check again in 1sec
+    window.setTimeout(pollFiles, 5000);
+  }
+
+  document.onload = pollFiles();
+  */
 </script>
